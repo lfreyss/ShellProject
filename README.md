@@ -23,9 +23,9 @@ fin du/des processus fils pour afficher le résultat d’exécution du/des comma
 et variables devront être internes (fonctionnalités built-in), c’est-à-dire, directement prises en compte par le code.
 Ainsi on distinguera trois phases distinctes :
 
-  1. L’évaluation de l’expression soumise à l’interpréteur.
-  2. L’exécution ordonnancée du sous-ensemble de commandes.
-  3. La soumission du résultat d’exécution.
+  1. L’évaluation de l’expression soumise à l’interpréteur. 
+  2. L’exécution ordonnancée du sous-ensemble de commandes. 
+  3. La soumission du résultat d’exécution. 
 
 
 III – Résultats attendus
@@ -33,37 +33,37 @@ III – Résultats attendus
   Le livrable attendu pour ce projet se résume en un code source compilable et exécutable répondant d’une part aux
 fonctions métiers suivantes :
 
-   FM01 – Le binaire est capable d’exécuter une commande simple (ie : ls –l ; ps ; who)
+   FM01 – Le binaire est capable d’exécuter une commande simple (ie : ls –l ; ps ; who) 
    FM02 – Le binaire est capable d’exécuter un sous-ensemble de plusieurs commandes de sorte à prendre en
-  compte :
-   Les opérateurs de contrôle : && et ||
-   Les redirections de flux simples : |, >, <, >>, <<
-   L’exécution en arrière-plan : &
-   FM03 – L’exécution des commandes internes (fonctionnalités built-in) suivantes :
-   cd - Permettant de se déplacer au sein d’une arborescence de fichier.
-   pwd – Affichant la valeur de la variable contenant le chemin du répertoire courant.
-   exit – Permettant de quitter l’interpréteur.
-   echo – Permettant d’afficher du texte sur la sortie standard.
-   FM04 - La persistance des commandes saisie dans un fichier (historique)
+  compte : 
+     Les opérateurs de contrôle : && et ||  
+     Les redirections de flux simples : |, >, <, >>, << 
+     L’exécution en arrière-plan : & 
+   FM03 – L’exécution des commandes internes (fonctionnalités built-in) suivantes : 
+   cd - Permettant de se déplacer au sein d’une arborescence de fichier. 
+   pwd – Affichant la valeur de la variable contenant le chemin du répertoire courant. 
+   exit – Permettant de quitter l’interpréteur. 
+   echo – Permettant d’afficher du texte sur la sortie standard. 
+   FM04 - La persistance des commandes saisie dans un fichier (historique) 
   
-D’autres fonctionnalités optionnelles peuvent êtres implémentés :
+D’autres fonctionnalités optionnelles peuvent êtres implémentés : 
 
-   FO01 – La réalisation d’un mode batch (ie : ./my_shell –c « ls –al | grep toto »)
-   FO02 – La création de variables d’environnement
-   FO03 – La prise en charge d’alias 
+   FO01 – La réalisation d’un mode batch (ie : ./my_shell –c « ls –al | grep toto ») 
+   FO02 – La création de variables d’environnement 
+   FO03 – La prise en charge d’alias  
 
-Concernant les exigences techniques attendues, vous devez respecter les contraintes suivantes :
+Concernant les exigences techniques attendues, vous devez respecter les contraintes suivantes : 
 
-   CT01 – La compilation du projet doit se faire via un Makefile.
-   CT02 – La définitions des structures doit se faire dans un fichier typedef.h.
-   CT03 – La définition des méthodes protoype (.h) & implémentation (.c) doit se faire de manière séparée autant
-  que faire se peut.
-   CT04 – Le code produit doit être documenté.
+   CT01 – La compilation du projet doit se faire via un Makefile. 
+   CT02 – La définitions des structures doit se faire dans un fichier typedef.h. 
+   CT03 – La définition des méthodes protoype (.h) & implémentation (.c) doit se faire de manière séparée autant 
+  que faire se peut. 
+   CT04 – Le code produit doit être documenté. 
    CT05 – La gestion des erreurs doit se faire via « les mécanismes proposés par errno ».
-  D’autres contraintes techniques peuvent être prises en compte :
-   CTO01 – La documentation du code générée via l’utilitaire doxygen.
-   CTO02 – Le code est soumis à un contrôle de couverture via l’utilitaire gcov.
-   CTO03 – Une page de manuel Linux est rédigée pour détailler l’exécution du shell.
+  D’autres contraintes techniques peuvent être prises en compte : 
+   CTO01 – La documentation du code générée via l’utilitaire doxygen. 
+   CTO02 – Le code est soumis à un contrôle de couverture via l’utilitaire gcov. 
+   CTO03 – Une page de manuel Linux est rédigée pour détailler l’exécution du shell. 
   
 IV – Evaluation
 
