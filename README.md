@@ -60,7 +60,8 @@ Concernant les exigences techniques attendues, vous devez respecter les contrain
   que faire se peut. <br/>
    CT04 – Le code produit doit être documenté. <br/>
    CT05 – La gestion des erreurs doit se faire via « les mécanismes proposés par errno ».<br/>
-  D’autres contraintes techniques peuvent être prises en compte : <br/>
+  
+D’autres contraintes techniques peuvent être prises en compte : <br/>
    CTO01 – La documentation du code générée via l’utilitaire doxygen. <br/>
    CTO02 – Le code est soumis à un contrôle de couverture via l’utilitaire gcov. <br/>
    CTO03 – Une page de manuel Linux est rédigée pour détailler l’exécution du shell. <br/>
