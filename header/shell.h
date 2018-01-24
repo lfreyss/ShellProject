@@ -15,4 +15,6 @@
 
 #include "../header/typedef.h"
 
+void bash_loop();
+
 #endif
