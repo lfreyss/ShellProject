@@ -23,9 +23,9 @@ fin du/des processus fils pour afficher le résultat d’exécution du/des comma
 et variables devront être internes (fonctionnalités built-in), c’est-à-dire, directement prises en compte par le code.
 Ainsi on distinguera trois phases distinctes :
 
-  1. L’évaluation de l’expression soumise à l’interpréteur. 
-  2. L’exécution ordonnancée du sous-ensemble de commandes. 
-  3. La soumission du résultat d’exécution. 
+  1. L’évaluation de l’expression soumise à l’interpréteur. <br/>;
+  2. L’exécution ordonnancée du sous-ensemble de commandes. <br/>;
+  3. La soumission du résultat d’exécution. <br/>;
 
 
 III – Résultats attendus
