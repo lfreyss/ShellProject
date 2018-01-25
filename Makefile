@@ -19,7 +19,7 @@ $(PROG): $(OBJ)
 
 
 %.o: %.c %.h
-	$(CC) -g -c $< -fPIC
+	$(CC) -g -c $< 
 
 #Nettoyage des fichiers de pré-compilation
 clean:

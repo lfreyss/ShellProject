@@ -8,7 +8,6 @@
  * Fichier de lancement.
  *
  */
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -28,6 +27,17 @@ int main(int argc, char* argv)
   return EXIT_SUCCESS;
 }
 
+
+int execute(char* args) {
+  int status = 1;
+  if(strcmp ("exit", args) == 0) {
+    status = 0;
+  } else {
+    printf("%s\n", args);
+  }
+  return status;
+}
+
 /**
  * \fn void bash_loop (void)
  * \brief Fonction de test.
@@ -37,5 +47,15 @@ int main(int argc, char* argv)
  */
 void bash_loop()
 {
-  printf("Hello world");
+
+  int status;
+
+  do {
+    char *line;
+    printf("PROMPT>>> ");
+    scanf(" %s", &line);
+    //args = lsh_split_line(line);
+    status = execute(&line);
+
+  } while (status);
 }

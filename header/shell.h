@@ -15,6 +15,6 @@
 
 #include "../header/typedef.h"
 
+int execute(char* args);
 void bash_loop();
-
 #endif
