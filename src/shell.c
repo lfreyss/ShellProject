@@ -12,8 +12,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "../header/shell.h"
-
-
+#include "../header/tree.h"
+#include "../header/stack.h"
 /**
  * \fn int main (void)
  * \brief Fonction de destruction de l'objet Str_t.
@@ -23,6 +23,13 @@
  */
 int main(int argc, char* argv)
 {
+  /*char *line;
+  printf("PROMPT>>> ");
+  scanf(" %s", line);
+  node* t = newNode(line);
+  printf("line %s", line);
+
+  printf("peek>>>%s ", t->value);*/
   bash_loop();
   return EXIT_SUCCESS;
 }
@@ -49,13 +56,23 @@ void bash_loop()
 {
 
   int status;
-
+  Stack* stack = createStack(20);
+  char line[20];
   do {
-    char *line;
+
     printf("PROMPT>>> ");
-    scanf(" %s", &line);
+    scanf(" %s", line);
+    node* t = newNode(line);
+    push(stack,t);
     //args = lsh_split_line(line);
     status = execute(&line);
 
   } while (status);
+    printf("peek>>>%s\n ", peek(stack)->value);
+    printf("pop>>>%s \n", pop(stack)->value);
+
+
+
+    printf("peek>>>%s \n", peek(stack)->value);
+    printf("pop>>>%s \n", pop(stack)->value);
 }

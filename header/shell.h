@@ -10,10 +10,10 @@
  */
 
 
-#ifndef rules
-#define rules
+#ifndef _SHELL_H_
+#define _SHELL_H_
 
-#include "../header/typedef.h"
+#include "typedef.h"
 
 int execute(char* args);
 void bash_loop();
