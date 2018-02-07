@@ -23,4 +23,4 @@ $(PROG): $(OBJ)
 
 #Nettoyage des fichiers de pré-compilation
 clean:
-	rm $(PROG) *.o *.a *.so
+	rm $(PROG) *.o

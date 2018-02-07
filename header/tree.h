@@ -21,6 +21,6 @@
   // A utility function to create a new node
   node* newNode(char* v);
 
-  node* constructTree(char* postfix[]);
+  node* constructTree(char* postfix);
 
 #endif

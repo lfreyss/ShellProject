@@ -36,21 +36,22 @@ void inorder(node *t)
 // A utility function to create a new node
 node* newNode(char* v)
 {
-    node *temp = malloc(sizeof(node));
+    node* temp = malloc(sizeof(node));
     temp->left = temp->right = NULL;
     temp->value = v;
     return temp;
 };
 
-node* constructTree(char* postfix[])
+node* constructTree(char* postfix)
 {
     Stack* stack = createStack(20);
     node *t, *t1, *t2;
-
+    printf("const tree %s", postfix);
     // Traverse through every character of
     // input expression
-    for (int i=0; i<strlen(postfix); i++)
+    for (int i=0; postfix[i]!='\0'; i++)
     {
+      printf("%s\n", postfix[i]);
         // If operand, simply push into stack
         if (!isOperator(postfix[i]))
         {

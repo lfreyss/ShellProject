@@ -56,23 +56,17 @@ void bash_loop()
 {
 
   int status;
-  Stack* stack = createStack(20);
-  char line[20];
+  char* line;
   do {
 
     printf("PROMPT>>> ");
-    scanf(" %s", line);
-    node* t = newNode(line);
-    push(stack,t);
+    scanf("%s", line);
+    constructTree(&line);
+
+
     //args = lsh_split_line(line);
     status = execute(&line);
 
   } while (status);
-    printf("peek>>>%s\n ", peek(stack)->value);
-    printf("pop>>>%s \n", pop(stack)->value);
 
-
-
-    printf("peek>>>%s \n", peek(stack)->value);
-    printf("pop>>>%s \n", pop(stack)->value);
 }
