@@ -17,7 +17,7 @@
 // is an operator
 bool isOperator(char* c)
 {
-    if ((strcmp ("||", c) == 0) || (strcmp ("&&", c) == 0))
+    if ((strcmp ("||", c) == 0) || (strcmp ("&&", c) == 0) || (strcmp ("|", c) == 0) || (strcmp (">", c) == 0))
         return true;
     return false;
 }
@@ -34,53 +34,66 @@ void inorder(node *t)
 }
 
 // A utility function to create a new node
-node* newNode(char* v)
+node* newNode()
 {
     node* temp = malloc(sizeof(node));
     temp->left = temp->right = NULL;
-    temp->value = v;
+    temp->value = NULL;
     return temp;
 };
 
-node* constructTree(char* postfix)
-{
-    Stack* stack = createStack(20);
-    node *t, *t1, *t2;
-    printf("const tree %s", postfix);
-    // Traverse through every character of
-    // input expression
-    for (int i=0; postfix[i]!='\0'; i++)
-    {
-      printf("%s\n", postfix[i]);
-        // If operand, simply push into stack
-        if (!isOperator(postfix[i]))
-        {
-            t = newNode(postfix[i]);
-            push(stack, t);
+node* constructTree(char **input, int sizeInput)
+{ 
+    node* rightLeaf = newNode();
+    node* root = newNode();
+    int i;
+    if(sizeInput == -1)
+        return NULL;
+
+    if(!isOperator(input[sizeInput])) {
+        if(sizeInput != -1) {
+            
+            char** parsedControlInput = malloc(strlen(input[sizeInput]) * sizeof(char*));
+            for (int i = 0; i < strlen(input[sizeInput]); i++)
+                parsedControlInput[i] = malloc((40) * sizeof(char)); 
+
+            int size = parseRedirectionFlux(input[sizeInput],parsedControlInput);
+            if( size == 0){
+                rightLeaf->value = input[sizeInput];
+            } else {
+                rightLeaf = constructTree(parsedControlInput, size);
+            }
+        } else {
+            rightLeaf->value = input[sizeInput];
         }
-        else // operator
-        {
-            t = newNode(postfix[i]);
+        sizeInput--;
+    } 
+    if(sizeInput == -1)
+        return rightLeaf;
 
-            // Pop two top nodes
-            t1 = peek(stack); // Store top
-            pop(stack);      // Remove top
-            t2 = peek(stack);
-            pop(stack);
-
-            //  make them children
-            t->right = t1;
-            t->left = t2;
-
-            // Add this subexpression to stack
-            push(stack, t);
-        }
+    if(isOperator(input[sizeInput])) {
+        root->value = input[sizeInput];
+        root->right = rightLeaf;
+        root->left = constructTree(input, --sizeInput);
     }
 
-    //  only element will be root of expression
-    // tree
-    t = peek(stack);
-    pop(stack);
+    return root;
+}
 
-    return t;
+
+
+/**
+* \fn char afficherArbre( NOEUD *noeud )
+* \brief Fonction affichant rÃ©cursivement les noeuds de l'arbre de droite Ã  gauche
+* \param noeud La racine de l'arbre Ã  afficher sur la sortie standard
+* \return La valeur du noeud lu (avant appels recursifs sur ses noeuds fils)
+*/
+char* displayTree( node* noeud ){
+    if ( noeud != NULL ){
+        printf("\t\tNoeud..................... [%s]\n", noeud->value);
+        printf("\t\t\tFils gauche du noeud [%s].. [%s]\n", noeud->value, displayTree(noeud->left));
+        printf("\t\t\tFils droit  du noeud [%s].. [%s]\n", noeud->value, displayTree(noeud->right));
+        return noeud->value;
+    }
+    return "nobody";
 }

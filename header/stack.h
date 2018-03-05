@@ -28,5 +28,7 @@
   // FUnction to get the top node
   node* peek(Stack* stack);
 
+void afficherPile( Stack *p );
+
 
 #endif

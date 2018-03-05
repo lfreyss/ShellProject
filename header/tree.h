@@ -9,18 +9,19 @@
  *
  */
 
- #ifndef _SHELL_H_
- #define _SHELL_H_
+#ifndef _SHELL_H_
+#define _SHELL_H_
 #include "typedef.h"
 
   bool isOperator(char* c);
-
   // Utility function to do inorder traversal
   void inorder(node *t);
-
   // A utility function to create a new node
-  node* newNode(char* v);
+  node* newNode();
+  node* constructTree(char **input, int sizeInput);
+  Stack* remplirPileViaES(char **expression);
+  char* displayTree( node* noeud );
 
-  node* constructTree(char* postfix);
+
 
 #endif

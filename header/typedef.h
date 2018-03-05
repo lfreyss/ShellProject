@@ -14,7 +14,8 @@
 
 typedef struct _node {
     char* value;
-    struct _node *left, *right;
+    struct _node *left;
+    struct _node *right;
 } node;
 
 

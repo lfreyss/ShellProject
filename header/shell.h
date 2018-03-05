@@ -14,8 +14,13 @@
 #define _SHELL_H_
 
 #include "typedef.h"
+#include "helper.h"
 
-
-int execute(char* args);
+int execute(char **args);
+void printDir();
+int runCommand(char **args);
+int runCd(char **args);
+char* readTree(node* root);
+void runHelp();
 void bash_loop();
 #endif

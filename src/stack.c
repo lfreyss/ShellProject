@@ -27,34 +27,62 @@ int isEmpty(Stack* stack)
 // Function to add an item to stack.  It increases top by 1
 void push(Stack* stack, node* item)
 {
-    printf("node value avant ++ %s\n", stack->array[stack->top].value);
-
     if (isFull(stack))
         return;
-    //stack->top = stack->top+1;
+    if(item->left != NULL) {
+        printf("item left leaf %s\n", item->left->value);
+    } 
+    if(item->right != NULL) {
+        printf("item right leaf %s\n", item->right->value);
+    } 
     stack->array[++stack->top] = *item;
-    printf("node value après ++ %s\n", stack->array[stack->top].value);
-
-    //printf("%s pushed to stack\n", item->value);
+    printf("%s item to stack\n", item->value);
+    printf("push top : %d \n", stack->top);   
+    if(stack->top != -1) {
+        if(peek(stack)->left != NULL) {
+             printf("item left leaf after %s\n", item->left->value);
+            peek(stack)->left = item->left;
+            printf("pile left leaf %s\n", peek(stack)->left->value);
+        } 
+        if(peek(stack)->right != NULL) {
+            printf("pile right leaf %s\n", peek(stack)->right->value);
+        } 
+    }
+   
 }
 
 // Function to remove an item from stack.  It decreases top by 1
 node* pop(Stack* stack)
 {
-    node* n = &stack->array[stack->top];
-    printf("node value avant -- %s\n", stack->array[stack->top].value);
-    stack->top = stack->top-1;
-    printf("node value après -- %s\n", stack->array[stack->top].value);
-    printf("node value après -- %s\n", stack->array[stack->top-1].value);
-    printf("node value après -- %s\n", stack->array[stack->top-2].value);
-
-
-    printf("%d\n", stack->top);
+    node* n = &stack->array[stack->top--];
+    printf("pop n : %s \n", n->value);
     return n;
 }
 
 node* peek(Stack* stack)
 {
-  printf("peek %d\n", stack->top);
     return &stack->array[stack->top];
+}
+
+
+/**
+* \fn void afficherPile( PILE *p )
+* \brief ProcÃ©dure affichant le contenu de la pile p
+*/
+void afficherPile( Stack *p ){
+
+    if ( isEmpty(p) ){
+        printf("La pile est vide\n");
+        return;
+    }
+
+    printf("Pile.....................:\n");
+    Stack *_m = p;
+    int top = _m->top;
+    while ( top != -1 ){
+        node* noeud = &_m->array[top];
+        printf("\t\t\t[%s]\n",noeud->value);
+        top--;
+    }
+
 }
