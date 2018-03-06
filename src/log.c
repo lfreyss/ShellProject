@@ -15,13 +15,13 @@ void resetLogFile(){
         exit(1);
     }
 }
-int main() {
-    char* cmd = "ls -l || echo 'good'";
-    FILE *f = fopen("logCmd.txt", "w");
-    resetLogFile();
-    for(int i = 0; i < 4; i++){
-        logCmd(cmd, f);
-    }
-    fclose(f);
-    return 0;
-}
+// int main() {
+//     char* cmd = "ls -l || echo 'good'";
+//     FILE *f = fopen("logCmd.txt", "w");
+//     resetLogFile();
+//     for(int i = 0; i < 4; i++){
+//         logCmd(cmd, f);
+//     }
+//     fclose(f);
+//     return 0;
+// }

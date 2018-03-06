@@ -43,7 +43,54 @@ int parseSpace(char* str, char* parsed[])
         if (strlen(parsed[i]) == 0)
             i--;
     }
+    int j = 0;
+    for(j = 0; j < i; j++) {
+        trim(parsed[j]);
+        printf("whitout space:%s\n", parsed[j]);
+    }
     return i;
+}
+/**
+ * Enlève les espaces en début de chaine
+ */
+void ltrim(char * str)
+{
+    int strIndex = 0;
+    int i;
+    while(str[strIndex] == ' ' || str[strIndex] == '\t' || str[strIndex] == '\n')
+        strIndex++;
+    if(strIndex != 0)
+    {
+        i = 0;
+        while(str[i + strIndex] != '\0')
+        {
+            str[i] = str[i + strIndex];
+            i++;
+        }
+        str[i] = '\0'; // Make sure that string is NULL terminated
+    }
+}
+
+/**
+ * Enlève les espaces en fin de chaine
+ * 
+ *  
+ */
+void rtrim(char * str)
+{
+    int strIndex;
+    int lastIndex;
+    lastIndex = strlen(str);
+    strIndex = lastIndex;
+    while(str[strIndex] == ' ' || str[strIndex] == '\t' || str[strIndex] == '\n')
+        strIndex--;
+    if(strIndex != lastIndex )
+        str[strIndex] = '\0'; // Make sure that string is NULL terminated
+}
+
+void trim(char str[]) {
+    ltrim(str);
+    rtrim(str);
 }
 
 void addChar(char c, char* stringToAdd) {
@@ -97,5 +144,13 @@ int parseRedirectionFlux(char* str, char** parsed) {
         
     }
     return j;
+}
+
+char** createMallocTab(int size) {
+    char** tab = malloc(sizeof(char*) * size);
+    for(int i = 0; i < size; i++) {
+      tab[i] = malloc(sizeof(char)*40);
+    }
+    return tab;
 }
 

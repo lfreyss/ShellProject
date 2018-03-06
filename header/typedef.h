@@ -28,6 +28,7 @@ typedef struct _stack
    node* array;
 } Stack;
 
+
 typedef int bool;
 #define true 1
 #define false 0
