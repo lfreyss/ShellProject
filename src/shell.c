@@ -20,7 +20,7 @@
 #include "../header/log.h"
 /**
  * \fn int main (void)
- * \brief Fonction de destruction de l'objet Str_t.
+ * \brief Main
  * \author vlambs
  * \param argc(int) et argv (char*)
  * \return EXIT_SUCCESS
@@ -34,7 +34,10 @@ int main(int argc, char* argv)
   printf("line %s", line);
 
   printf("peek>>>%s ", t->value);*/
-  bash_loop();
+  resetLogFile();
+  FILE *f = fopen("logCmd.txt", "w");
+  bash_loop(f);
+  fclose(f);
   return EXIT_SUCCESS;
 }
 
@@ -84,7 +87,7 @@ char* readTree(node* root) {
  * \param void
  * \return void
  */
-void bash_loop()
+void bash_loop(FILE *f)
 {
 
   int loopAlive = 1;
@@ -105,6 +108,7 @@ void bash_loop()
     if(strcmp ("exit", parsedInput[0]) == 0) {
       loopAlive = 0 ;
     } else {
+      logCmd(input, f);
       node* root = constructTree(parsedInput, sizeInput);
       displayTree( root);
       readTree(root);
