@@ -53,15 +53,15 @@ node* constructTree(char **input, int sizeInput)
     if(!isOperator(input[sizeInput])) {
         if(sizeInput != -1) {
             
-            char** parsedControlInput = malloc(strlen(input[sizeInput]) * sizeof(char*));
+            char** parsedRedirectionInput = malloc(strlen(input[sizeInput]) * sizeof(char*));
             for (int i = 0; i < strlen(input[sizeInput]); i++)
-                parsedControlInput[i] = malloc((40) * sizeof(char)); 
+                parsedRedirectionInput[i] = malloc((40) * sizeof(char)); 
 
-            int size = parseRedirectionFlux(input[sizeInput],parsedControlInput);
+            int size = parseRedirectionFlux(input[sizeInput],parsedRedirectionInput);
             if( size == 0){
                 rightLeaf->value = input[sizeInput];
             } else {
-                rightLeaf = constructTree(parsedControlInput, size);
+                rightLeaf = constructTree(parsedRedirectionInput, size);
             }
         } else {
             rightLeaf->value = input[sizeInput];

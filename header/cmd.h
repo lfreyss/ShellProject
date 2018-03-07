@@ -25,6 +25,6 @@ int runCommand(char **args);
 int runCd(char **args);
 void error(const char *msg);
 void runPipe(char **command1, char **command2);
-
+void runRedirection(char** cmd, char* outputFileName );
 #endif
 

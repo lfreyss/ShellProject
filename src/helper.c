@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "../header/typedef.h"
 
 char *readline(void)
 {
@@ -154,3 +155,42 @@ char** createMallocTab(int size) {
     return tab;
 }
 
+void copyContentFile(char* filename) {
+    FILE *fp1, *fp2;
+    int a;
+
+    fp1 = fopen("out", "r");
+    if (fp1 == NULL) {
+      puts("cannot open out file");
+      exit(0);
+    }
+
+    fp2 = fopen(filename, "w");
+    if (fp2 == NULL) {
+      puts("cannot open in file");
+      fclose(fp1);
+      exit(0);
+    }
+    while( (a = fgetc(fp1)) != EOF )
+    {
+      fputc(a, fp2);
+    }
+
+    fclose(fp1);
+    fclose(fp2);
+}
+
+bool fileIsEmpty() {
+    FILE *fp;
+    fp = fopen("in", "r");
+    int size;
+    if (fp != NULL) {
+        fseek (fp, 0, SEEK_END);
+        size = ftell(fp);
+
+        if (size == 0) {
+            return true;
+        }
+    }
+    return false;
+}

@@ -1,0 +1,23 @@
+total 760
+drwxrwxr-x 8 laurent laurent   4096 mars   7 12:06 .
+drwxrwxr-x 7 laurent laurent   4096 mars   7 11:22 ..
+-rw-rw-r-- 1 laurent laurent 623489 janv. 24 11:17 00-project.pdf
+-rw-rw-r-- 1 laurent laurent  10016 mars   7 11:52 cmd.o
+drwxrwxr-x 2 laurent laurent   4096 mars   6 11:16 doc
+drwxrwxr-x 8 laurent laurent   4096 mars   7 12:20 .git
+-rw-rw-r-- 1 laurent laurent    430 janv. 24 11:17 .gitignore
+drwxrwxr-x 2 laurent laurent   4096 mars   6 09:22 header
+-rw-rw-r-- 1 laurent laurent  12856 mars   7 12:03 helper.o
+-rw-rw-r-- 1 laurent laurent      0 mars   7 12:09 in
+-rw-rw-r-- 1 laurent laurent   6312 mars   6 09:28 log.o
+-rw-rw-r-- 1 laurent laurent    431 mars   5 22:09 Makefile
+drwxrwxr-x 2 laurent laurent   4096 févr.  7 10:44 obj
+-rw-rw---- 1 laurent laurent      0 mars   7 12:21 out
+-rw-rw-r-- 1 laurent laurent   4642 janv. 24 11:17 README.md
+-rwxrwxr-x 1 laurent laurent  34432 mars   7 12:05 shell
+-rw-rw-r-- 1 laurent laurent   7480 mars   7 12:05 shell.o
+drwxrwxr-x 2 laurent laurent   4096 mars   6 09:22 src
+-rw-rw-r-- 1 laurent laurent   7392 mars   6 09:26 stack.o
+-rw-rw-r-- 1 laurent laurent   1279 mars   7 12:20  test
+-rw-rw-r-- 1 laurent laurent   7232 mars   6 18:10 tree.o
+drwxrwxr-x 2 laurent laurent   4096 févr.  7 11:20 .vscode

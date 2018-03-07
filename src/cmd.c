@@ -13,6 +13,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "../header/typedef.h"
 
 
@@ -56,6 +59,17 @@ bool runCommand(char **args){
   pid_t waitPid;
   int status;
 
+  int saved_stdout = dup(1);
+  int out; 
+  int in;
+  out = open("out", O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+  in = open("in", O_RDONLY);
+  dup2(out, 1);
+  
+  if(fileIsEmpty() == false){
+    dup2(in,0);
+  }
+  
   forkPid = fork();
   if (forkPid == 0) {
     // On est dans le fils
@@ -70,8 +84,14 @@ bool runCommand(char **args){
     // On est dans le père
     do {
       waitPid = waitpid(forkPid, &status, WUNTRACED);
+      
     } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+    close(out);
+    close(in);
+    dup2(saved_stdout, 1);
+    close(saved_stdout);
   }
+
   if(status != 0) 
     return false;
   else {
@@ -87,6 +107,9 @@ bool execute(char **args){
   
   else if(strcmp ("help", args[0]) == 0){
     runHelp();
+  }
+  else if(strcmp ("echo", args[0]) == 0){
+    printf("%s\n",args[1]);
   }
   else if (strcmp ("cd", args[0]) == 0){
     if (runCd(args) == 1){
@@ -105,10 +128,12 @@ void error(const char *msg)
     exit(EXIT_FAILURE);
 }
 
-void runPipe(char **command1, char **command2)
+void runPipe(char **cmd1, char **cmd2)
 {
     int fd[2];
     pid_t childPid;
+    pid_t waitPid;
+    int status;
     if (pipe(fd) != 0)
         error("failed to create pipe");
 
@@ -120,13 +145,45 @@ void runPipe(char **command1, char **command2)
         dup2(fd[1], 1);
         close(fd[0]);
         close(fd[1]);
-        runCommand(command1);
+        //status = execvp(cmd1[0], cmd1);
+        runCommand(cmd1);
+        //error("close1");
+        
     }
     else
     {
         dup2(fd[0], 0);
         close(fd[0]);
         close(fd[1]);
-        runCommand(command2);
+        //status = execvp(cmd2[0], cmd2);
+        runCommand(cmd2);
+        //error("close2");
     }
+}
+
+void runRedirection(char** cmd, char* outputFileName ) {
+   int out;
+  //char *grep_args[] = {"grep", "Villanova", NULL};
+
+  // open input and output files
+
+  //in = open("scores", O_RDONLY);
+  out = open(outputFileName, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+
+  // replace standard input with input file
+
+  //dup2(in, 0);
+
+  // replace standard output with output file
+
+  dup2(out, 1);
+
+  // close unused file descriptors
+
+  //close(in);
+  close(out);
+
+  // execute grep
+
+  execvp(cmd[0],cmd);
 }

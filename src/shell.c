@@ -13,6 +13,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "../header/shell.h"
 #include "../header/tree.h"
 #include "../header/stack.h"
@@ -43,7 +46,8 @@ bool status = false;
 
 char* readTree(node* root) {
     if(root != NULL) {
-        readTree(root->left);
+      
+          readTree(root->left);
         
         printf("Commande : %s\n", root->value);
         if(isOperator(root->value)) {
@@ -55,21 +59,28 @@ char* readTree(node* root) {
               if(status == false) {
                 readTree(root->right);
               }
-            } else if(strcmp ("|", root->value) == 0) {
-              char** arg1 = createMallocTab(5);// root->value, NULL };
-              parseSpace(root->left->value, arg1);
-              char** arg2 = createMallocTab(5);// root->value, NULL };
-              parseSpace(root->right->value, arg2);
-              runPipe(arg1,arg2);
-
             } else if(strcmp (">", root->value) == 0) {
+              //readTree(root->right);
+              copyContentFile(root->right->value);
+
+            }  else if(strcmp ("|", root->value) == 0) {
+              // char** arg1 = createMallocTab(5);// root->value, NULL };
+              // parseSpace(root->left->value, arg1);
+              // char** arg2 = createMallocTab(5);// root->value, NULL };
+              // parseSpace(root->right->value, arg2);
+              // runPipe(arg1,arg2);
+              int saved_stin = dup(0);
+
+              copyContentFile("in");
               readTree(root->right);
+              fclose(fopen("in", "w"));
+              dup2(saved_stin, 0);
+              close(saved_stin);
             }
         } else {
-          
           char** arguments = createMallocTab(5);// root->value, NULL };
           parseSpace(root->value, arguments);
-          //status = execute(arguments);
+          status = execute(arguments);
         }
         return root->value;
     }
