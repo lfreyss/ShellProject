@@ -16,5 +16,5 @@
 #include "typedef.h"
 
 char* readTree(node* root);
-void bash_loop();
+void bash_loop(FILE *f);
 #endif

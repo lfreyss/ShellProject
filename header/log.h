@@ -1,7 +1,7 @@
 /**
  * \file helper.h
  * \brief helper header.
- * \author lfreyss
+ * \author vlambs
  * \version 0.1
  * \date 20180207
  *

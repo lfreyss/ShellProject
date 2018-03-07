@@ -104,7 +104,6 @@ bool execute(char **args){
   if(args == NULL){
     return status;
   }
-  
   else if(strcmp ("help", args[0]) == 0){
     runHelp();
   }
