@@ -99,26 +99,38 @@ bool runCommand(char **args){
   }
 }
 
+bool runEcho(char* str) {
+  int saved_stdout = dup(1);
+  int out; 
+  out = open("out", O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+  dup2(out, 1);
+  printf("%s\n",str);
+  close(out);    
+  dup2(saved_stdout, 1);
+  close(saved_stdout);
+  return true;
+}
+
 bool execute(char **args){
-  bool status = false;
+  bool isSuccessfull = false;
   if(args == NULL){
-    return status;
+    return isSuccessfull;
   }
   else if(strcmp ("help", args[0]) == 0){
     runHelp();
   }
   else if(strcmp ("echo", args[0]) == 0){
-    printf("%s\n",args[1]);
+    runEcho(args[1]);
   }
   else if (strcmp ("cd", args[0]) == 0){
     if (runCd(args) == 1){
-      status = runCommand(args);
+      isSuccessfull = runCommand(args);
     }
   }
   else {
-    status = runCommand(args);
+    isSuccessfull = runCommand(args);
   }
-  return status;
+  return isSuccessfull;
 }
 
 void error(const char *msg)

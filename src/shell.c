@@ -49,46 +49,61 @@ bool status = false;
 
 char* readTree(node* root) {
     if(root != NULL) {
-      
+        if(strcmp ("<", root->value) == 0) {
+            int saved_stin = dup(0);
+            trim(root->right->value);
+            copyContentFile("in",root->right->value);
+            readTree(root->right);
+            //fclose(fopen("in", "w"));
+            dup2(saved_stin, 0);
+            close(saved_stin);
+        } else
           readTree(root->left);
         
         printf("Commande : %s\n", root->value);
         if(isOperator(root->value)) {
             if(strcmp ("&&", root->value) == 0) {
-              if(status == true) {
+              if(status == 1) {
+                displayOutput("out");
                 readTree(root->right);
+                status = 1;
               }
             } else if(strcmp ("||", root->value) == 0) {
-              if(status == false) {
+              if(status == 0) {
                 readTree(root->right);
               }
             } else if(strcmp (">", root->value) == 0) {
               //readTree(root->right);
-              copyContentFile(root->right->value);
+              trim(root->right->value);
+              copyContentFile(root->right->value, "out");
+              fclose(fopen("out", "w"));
 
-            }  else if(strcmp ("|", root->value) == 0) {
-              // char** arg1 = createMallocTab(5);// root->value, NULL };
-              // parseSpace(root->left->value, arg1);
-              // char** arg2 = createMallocTab(5);// root->value, NULL };
-              // parseSpace(root->right->value, arg2);
-              // runPipe(arg1,arg2);
+            } else if(strcmp ("|", root->value) == 0) {
               int saved_stin = dup(0);
-
-              copyContentFile("in");
+              copyContentFile("in", "out");
               readTree(root->right);
               fclose(fopen("in", "w"));
               dup2(saved_stin, 0);
               close(saved_stin);
             }
         } else {
-          char** arguments = createMallocTab(5);// root->value, NULL };
+          char** arguments = createMallocTab(5,40);// root->value, NULL };
           parseSpace(root->value, arguments);
           status = execute(arguments);
+          free(arguments);
+    //freeMallocTab(arguments, 5);
+          
         }
         return root->value;
     }
 
     return "end";   
+}
+
+void flush_stdin() {
+    char c;
+    ungetc('\n', stdin); // ensure that stdin is always dirty
+    while(((c = getchar()) != '\n') && (c != EOF));
 }
 
 /**
@@ -105,12 +120,16 @@ void bash_loop(FILE *f)
   char* line;
   do {
     printDir();
+    //flush_stdin();
+    char** parsedInput;
     char* input = readline();
-    char** parsedInput = createMallocTab(10);
+    parsedInput = createMallocTab(10,40);
+    //freeMallocTab(parsedInput,10);
     
+    // printf("input: %s\n",input);
 
     int sizeInput = parseControlOperator(input, parsedInput);
-    
+    free(input);
     // printf("1 - %s\n", parsedInput[0]);
     // printf("2 - %s\n", parsedInput[1]);
     // printf("3 - %s\n", parsedInput[2]);
@@ -121,11 +140,12 @@ void bash_loop(FILE *f)
     } else {
       logCmd(input, f);
       node* root = constructTree(parsedInput, sizeInput);
-      displayTree( root);
+      //displayTree( root);
       readTree(root);
-      free(parsedInput);
+      displayOutput("out");
     }
 
+    
   } while (loopAlive);
 
 }

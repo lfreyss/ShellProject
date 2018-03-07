@@ -47,7 +47,7 @@ int parseSpace(char* str, char* parsed[])
     int j = 0;
     for(j = 0; j < i; j++) {
         trim(parsed[j]);
-        printf("whitout space:%s\n", parsed[j]);
+        //printf("whitout space:%s\n", parsed[j]);
     }
     return i;
 }
@@ -108,7 +108,7 @@ void addChar(char c, char* stringToAdd) {
 }
 
 int parseControlOperator(char* str, char** parsed) {
-    int i;
+    int i, k;
     int j = 0;
     //char* testtest = malloc(sizeof(char)*15));
     for (i = 0; i < strlen(str); i++) {
@@ -126,15 +126,19 @@ int parseControlOperator(char* str, char** parsed) {
         } else 
             addChar(str[i], parsed[j]);                 
     }
+    for(k = 0; k < j; k++) {
+        trim(parsed[k]);
+        printf("whitout space:%s\n", parsed[k]);
+    }
     return j;
 }
 
 int parseRedirectionFlux(char* str, char** parsed) {
-    int i;
+    int i, k;
     int j = 0;
     //char* testtest = malloc(sizeof(char)*15));
     for (i = 0; i < strlen(str); i++) {
-        if(str[i] == '|' || str[i] == '>'){
+        if(str[i] == '|' || str[i] == '>' || str[i] == '<'){
             j++;
             addChar(str[i], parsed[j]);             
             j++;
@@ -144,28 +148,32 @@ int parseRedirectionFlux(char* str, char** parsed) {
         }
         
     }
+    for(k = 0;k < j; k++) {
+        trim(parsed[k]);
+        printf("whitout space:%s\n", parsed[k]);
+    }
     return j;
 }
 
-char** createMallocTab(int size) {
-    char** tab = malloc(sizeof(char*) * size);
-    for(int i = 0; i < size; i++) {
-      tab[i] = malloc(sizeof(char)*40);
+char** createMallocTab(int x, int y) {
+     char **a = calloc(x, sizeof(char *));
+    for(int i = 0; i != x; i++) {
+        a[i] = calloc(y, sizeof(char));
     }
-    return tab;
+    return a;
 }
 
-void copyContentFile(char* filename) {
+void copyContentFile(char* writefilename,char* readfilename) {
     FILE *fp1, *fp2;
     int a;
 
-    fp1 = fopen("out", "r");
+    fp1 = fopen(readfilename, "r");
     if (fp1 == NULL) {
       puts("cannot open out file");
       exit(0);
     }
 
-    fp2 = fopen(filename, "w");
+    fp2 = fopen(writefilename, "w");
     if (fp2 == NULL) {
       puts("cannot open in file");
       fclose(fp1);
@@ -193,4 +201,15 @@ bool fileIsEmpty() {
         }
     }
     return false;
+}
+
+void displayOutput(char* filename) {
+    int c;
+    FILE *file;
+    file = fopen(filename, "r");
+    if (file) {
+        while ((c = getc(file)) != EOF)
+            putchar(c);
+        fclose(file);
+    }
 }

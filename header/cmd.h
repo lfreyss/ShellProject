@@ -23,6 +23,7 @@ int execute(char **args);
 void printDir();
 int runCommand(char **args);
 int runCd(char **args);
+bool runEcho(char* str);
 void error(const char *msg);
 void runPipe(char **command1, char **command2);
 void runRedirection(char** cmd, char* outputFileName );

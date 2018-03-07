@@ -24,8 +24,9 @@ void trim(char str[]);
 int parseControlOperator(char* str, char** parsed);
 int parseRedirectionFlux(char* str, char** parsed);
 void addChar(char c, char* stringToAdd);
-char** createMallocTab(int size);
-void copyContentFile();
+char** createMallocTab(int x, int y);
+void copyContentFile(char* writefilename, char* readfilename);
 bool fileIsEmpty();
+void displayOutput(char* filename);
 
 #endif
