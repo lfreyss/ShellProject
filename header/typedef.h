@@ -33,5 +33,11 @@ typedef int bool;
 #define true 1
 #define false 0
 
+struct nlist { /* table entry: */
+    struct nlist *next; /* next entry in chain */
+    char *name; /* defined name */
+    char *defn; /* replacement text */
+};
+
 
 #endif

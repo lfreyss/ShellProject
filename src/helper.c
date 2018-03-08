@@ -127,7 +127,7 @@ int parseControlOperator(char* str, char** parsed) {
     }
     for(k = 0; k < j; k++) {
         trim(parsed[k]);
-        printf("whitout space:%s\n", parsed[k]);
+        //printf("whitout space:%s\n", parsed[k]);
     }
     return j;
 }
@@ -155,7 +155,7 @@ int parseRedirectionFlux(char* str, char** parsed) {
     }
     for(k = 0;k < j; k++) {
         trim(parsed[k]);
-        printf("whitout space:%s\n", parsed[k]);
+        //printf("whitout space:%s\n", parsed[k]);
     }
     return j;
 }

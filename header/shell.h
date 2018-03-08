@@ -15,6 +15,7 @@
 
 #include "typedef.h"
 
+void addAlias(char* input);
 char* readTree(node* root);
 void bash_loop(FILE *f);
 #endif

@@ -8,6 +8,8 @@
  * Fichier de lancement.
  *
  */
+
+#include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -21,6 +23,7 @@
 #include "../header/stack.h"
 #include "../header/cmd.h"
 #include "../header/log.h"
+#include "../header/typedef.h"
 
 
 
@@ -99,11 +102,12 @@ char* readTree(node* root) {
 
     return "end";   
 }
-
-void flush_stdin() {
-    char c;
-    ungetc('\n', stdin); // ensure that stdin is always dirty
-    while(((c = getchar()) != '\n') && (c != EOF));
+void addAlias(char* input) {
+  const char delimiters[] = "=";
+  char *alias = strtok (input, " ");      /* token => "words" */
+  char *name = strtok (NULL, delimiters);    /* token => "separated" */
+  char *def = strtok (NULL, delimiters);    /* token => "separated" */
+  struct nlist* hash = install(name,def);
 }
 
 /**
@@ -123,26 +127,37 @@ void bash_loop(FILE *f)
     //flush_stdin();
     char** parsedInput;
     char* input = readline();
-    parsedInput = createMallocTab(10,40);
-    
-    //printf("input: %s\n",input);
-
-    int sizeInput = parseControlOperator(input, parsedInput);
-    free(input);
-    // printf("1 - %s\n", parsedInput[0]);
-    // printf("2 - %s\n", parsedInput[1]);
-    // printf("3 - %s\n", parsedInput[2]);
-    // printf("4 - %s\n", parsedInput[3]);
-    // printf("5 - %s\n", parsedInput[4]);
-    if(strcmp ("exit", parsedInput[0]) == 0) {
-      loopAlive = 0 ;
+    if(input[0] == 'a' && input[1] == 'l' && input[2] == 'i' && input[3] == 'a' && input[4] == 's' ) {
+      trim(input);
+      addAlias(input);
     } else {
-      logCmd(input, f);
-      node* root = constructTree(parsedInput, sizeInput);
-      //displayTree( root);
-      readTree(root);
-      displayOutput("out");
-    }    
+      trim(input);
+      struct nlist* alias = lookup(input);
+      if(alias != NULL) {
+        input = alias->defn;
+      }
+      parsedInput = createMallocTab(10,40);
+      
+      //printf("input: %s\n",input);
+
+      int sizeInput = parseControlOperator(input, parsedInput);
+      free(input);
+      // printf("1 - %s\n", parsedInput[0]);
+      // printf("2 - %s\n", parsedInput[1]);
+      // printf("3 - %s\n", parsedInput[2]);
+      // printf("4 - %s\n", parsedInput[3]);
+      // printf("5 - %s\n", parsedInput[4]);
+      if(strcmp ("exit", parsedInput[0]) == 0) {
+        loopAlive = 0 ;
+      } else {
+        logCmd(input, f);
+        node* root = constructTree(parsedInput, sizeInput);
+        displayTree( root);
+        readTree(root);
+        displayOutput("out");
+      }    
+    }
+    
   } while (loopAlive);
 
 }
