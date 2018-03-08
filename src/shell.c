@@ -13,139 +13,97 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "../header/shell.h"
 #include "../header/tree.h"
 #include "../header/stack.h"
-/**
- * \fn int main (void)
- * \brief Fonction de destruction de l'objet Str_t.
- * \author vlambs
- * \param argc(int) et argv (char*)
- * \return EXIT_SUCCESS
- */
-int main(int argc, char* argv)
-{
-  /*char *line;
-  printf("PROMPT>>> ");
-  scanf(" %s", line);
-  node* t = newNode(line);
-  printf("line %s", line);
-
-  printf("peek>>>%s ", t->value);*/
-  bash_loop();
-  return EXIT_SUCCESS;
-}
+#include "../header/cmd.h"
+#include "../header/log.h"
 
 
-// Function to print Current Directory.
-void printDir()
-{
-    char cwd[1024];
-    getcwd(cwd, sizeof(cwd));
-    printf("\n%s >>>", cwd);
-}
-
-
-void runHelp(){
-  printf("-------------AIDE-------------\n");
-  printf("Voici la liste des built-in commandes:\n");
-  printf("  - exit\n");
-  printf("  - help\n");
-  printf("  - cd [args]\n");
-  printf("  - ls [args]\n");
-  printf("Plus d'information sur les commandes en accédant à leur manuel.\n");
-}
-
-int runCd(char **args){
-  int error;
-  error = 1;
-   if (args[1] == NULL) {
-    printf("Utilisation incorrecte de la commande CD\n");
-    error = 0;
-  } else {
-    if (chdir(args[1]) != 0) {
-      printf("Le dossier n'existe pas.\n");
-      error = 0;
-    }
-  }
-  return error;
-}
-
-int runCommand(char **args){
-
-  pid_t forkPid;
-  pid_t waitPid;
-  int status;
-
-  forkPid = fork();
-  if (forkPid == 0) {
-    // On est dans le fils
-    if (execvp(args[0], args) == -1) {
-      printf("Une erreur est survenue lors de l'execution de la commande.\n");
-    }
-    exit(EXIT_FAILURE);
-  } else if (forkPid < 0) {
-    printf("Une erreur est survenue lors de la création du processus fils.\n");
-  } else {
-    // On est dans le père
-    do {
-      waitPid = waitpid(forkPid, &status, WUNTRACED);
-    } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-  }
-
-  return 1;
-}
-
-int execute(char **args){
-  int status = 1;
-  if(args == NULL){
-    return 1;
-  }
-  
-  else if(strcmp ("help", args[0]) == 0){
-    runHelp();
-  }
-  else if (strcmp ("cd", args[0]) == 0){
-    if (runCd(args) == 1){
-      runCommand(args);
-    }
-  }
-  else {
-    status = runCommand(args);
-  }
-  return 1;
-}
 
 bool status = false;
 
 char* readTree(node* root) {
     if(root != NULL) {
-        readTree(root->left);
+        if(strcmp ("<", root->value) == 0) {
+            int saved_stin = dup(0);
+            trim(root->right->value);
+            copyContentFile("in",root->right->value, false);
+            readTree(root->left);
+            fclose(fopen("in", "w"));
+            dup2(saved_stin, 0);
+            close(saved_stin);
+        } else if(strcmp ("<<", root->value) == 0) {
+            int saved_stin = dup(0);
+            trim(root->right->value);
+            char* input = readline();
+            trim(input);
+            while(strcmp (input, root->right->value) != 0) {
+              addContentToFile(input);
+              input = readline();
+              trim(input); 
+            } 
+            
+            readTree(root->left);
+            fclose(fopen("in", "w"));
+            dup2(saved_stin, 0);
+            close(saved_stin);
+        } else
+          readTree(root->left);
         
         printf("Commande : %s\n", root->value);
         if(isOperator(root->value)) {
             if(strcmp ("&&", root->value) == 0) {
-                status = execute(root->left->value);
-                if(status == true) {
-                    readTree(root->right);
-                }
+              if(status == 1) {
+                displayOutput("out");
+                readTree(root->right);
+                status = 1;
+              }
             } else if(strcmp ("||", root->value) == 0) {
-                 if(status == false) {
-                    readTree(root->right);
-                }
-            } else if(strcmp ("|", root->value) == 0) {
+              if(status == 0) {
                 readTree(root->right);
+              }
             } else if(strcmp (">", root->value) == 0) {
-                readTree(root->right);
+              //readTree(root->right);
+              trim(root->right->value);
+              copyContentFile(root->right->value, "out", false);
+              fclose(fopen("out", "w"));
+
+            } else if(strcmp (">>", root->value) == 0) {
+              //readTree(root->right);
+              trim(root->right->value);
+              copyContentFile(root->right->value, "out", true);
+              fclose(fopen("out", "w"));
+
+            } else if(strcmp ("|", root->value) == 0) {
+              int saved_stin = dup(0);
+              copyContentFile("in", "out", false);
+              readTree(root->right);
+              fclose(fopen("in", "w"));
+              dup2(saved_stin, 0);
+              close(saved_stin);
             }
         } else {
-          char *arguments[] = { root->value, NULL };
+          char** arguments = createMallocTab(5,40);// root->value, NULL };
+          parseSpace(root->value, arguments);
           status = execute(arguments);
+          free(arguments);
+    //freeMallocTab(arguments, 5);
+          
         }
         return root->value;
     }
 
     return "end";   
+}
+
+void flush_stdin() {
+    char c;
+    ungetc('\n', stdin); // ensure that stdin is always dirty
+    while(((c = getchar()) != '\n') && (c != EOF));
 }
 
 /**
@@ -155,22 +113,22 @@ char* readTree(node* root) {
  * \param void
  * \return void
  */
-void bash_loop()
+void bash_loop(FILE *f)
 {
 
   int loopAlive = 1;
   char* line;
   do {
     printDir();
+    //flush_stdin();
+    char** parsedInput;
     char* input = readline();
-
-    char** parsedInput = malloc(sizeof(char*) * 10);
-    for(int i = 0; i < 10; i++) {
-      parsedInput[i] = malloc(sizeof(char)*40);
-    }
+    parsedInput = createMallocTab(10,40);
+    
+    //printf("input: %s\n",input);
 
     int sizeInput = parseControlOperator(input, parsedInput);
-    
+    free(input);
     // printf("1 - %s\n", parsedInput[0]);
     // printf("2 - %s\n", parsedInput[1]);
     // printf("3 - %s\n", parsedInput[2]);
@@ -179,12 +137,29 @@ void bash_loop()
     if(strcmp ("exit", parsedInput[0]) == 0) {
       loopAlive = 0 ;
     } else {
+      logCmd(input, f);
       node* root = constructTree(parsedInput, sizeInput);
-      displayTree( root);
+      //displayTree( root);
       readTree(root);
-      free(parsedInput);
-    }
-
+      displayOutput("out");
+    }    
   } while (loopAlive);
 
+}
+
+
+/**
+ * \fn int main (void)
+ * \brief Main
+ * \author vlambs
+ * \param argc(int) et argv (char*)
+ * \return EXIT_SUCCESS
+ */
+int main(int argc, char* argv)
+{
+  resetLogFile();
+  FILE *f = fopen("logCmd.txt", "w");
+  bash_loop(f);
+  fclose(f);
+  return EXIT_SUCCESS;
 }

@@ -1,0 +1,4 @@
+Exemples:
+
+ls -l && pwd || whoami
+lss -l && pwd || whoami
