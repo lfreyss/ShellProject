@@ -50,6 +50,34 @@ int parseSpace(char* str, char* parsed[])
     return i;
 }
 
+int parseString(char* str, char* parsed[], char* sep)
+{
+    int i;
+    int  len_result;
+
+    for (i = 0; i < 100; i++) {
+        parsed[i] = strsep(&str, sep);
+        if(parsed[i] != NULL) {
+            len_result = strlen(parsed[i]);
+            char* result = parsed[i];
+            if(result[(len_result - 1)] == '\n'){
+                result[(len_result - 1)] = '\0';
+                parsed[i] = result;
+            }
+        }
+     
+        if (parsed[i] == NULL)
+            break;
+        if (strlen(parsed[i]) == 0)
+            i--;
+    }
+    int j = 0;
+    for(j = 0; j < i; j++) { //trim toutes les string obtenues
+        trim(parsed[j]);
+    }
+    return i;
+}
+
 void ltrim(char * str)
 {
     int strIndex = 0;
@@ -68,11 +96,6 @@ void ltrim(char * str)
     }
 }
 
-/**
- * Enlève les espaces en fin de chaine
- * 
- *  
- */
 void rtrim(char * str)
 {
     int strIndex;
@@ -154,7 +177,7 @@ int parseRedirectionFlux(char* str, char** parsed) {
 }
 
 char** createCallocTab(int x, int y) {
-     char **a = calloc(x, sizeof(char *));
+     char **a = calloc(x, sizeof(char *)); //calloc à la place de malloc pour être sur que le tableau de string est vivde
     for(int i = 0; i != x; i++) {
         a[i] = calloc(y, sizeof(char));
     }
@@ -171,9 +194,9 @@ void copyContentFile(char* writefilename,char* readfilename, bool overide) {
       exit(0);
     }
     if(overide == true) 
-        fp2 = fopen(writefilename, "a");
+        fp2 = fopen(writefilename, "a"); //ajoute au contenu
     else
-        fp2 = fopen(writefilename, "w");
+        fp2 = fopen(writefilename, "w"); // remplace le contenu
     if (fp2 == NULL) {
       puts("cannot open in file");
       fclose(fp1);

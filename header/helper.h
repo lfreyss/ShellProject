@@ -32,6 +32,7 @@ char *readline(void);
  * \return
  */
 int parseSpace(char* str, char* parsed[]);
+int parseString(char* str, char* parsed[], char* sep);
 
 /**
  * \fn void ltrim(char* str);

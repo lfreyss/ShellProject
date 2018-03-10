@@ -122,36 +122,43 @@ void bash_loop(FILE *f)
   do {
     printDir();
     char** parsedInput;
-    char* input = readline(); // attend une saisie
-    if(input[0] == 'a' && input[1] == 'l' && input[2] == 'i' && input[3] == 'a' && input[4] == 's' ) { // si commande alias
-      trim(input);
-      addAlias(input);
-    } else {
-      trim(input);
+    char** parsedString;
+    char* completeInput = readline(); // attend une saisie
 
-    
-      parsedInput = createCallocTab(10,40);
-      
-      //printf("input: %s\n",input);
+    printf("input: %s\n",completeInput);
+    parsedString = createCallocTab(10,40);
+    char* seperator = ";";
+    char* input = "";
+    int sizeParse = parseString(completeInput, parsedString, seperator);
 
-      int sizeInput = parseControlOperator(input, parsedInput); // sépare la saisie par les opérateurs && et ||
-      free(input);
-      // printf("1 - %s\n", parsedInput[0]);
-      // printf("2 - %s\n", parsedInput[1]);
-      // printf("3 - %s\n", parsedInput[2]);
-      // printf("4 - %s\n", parsedInput[3]);
-      // printf("5 - %s\n", parsedInput[4]);
-      if(strcmp ("exit", parsedInput[0]) == 0) {
-        loopAlive = 0 ;
+    int i = 0;
+    for(i=0; i<sizeParse;i++) {
+      input = parsedString[i];
+      if(input[0] == 'a' && input[1] == 'l' && input[2] == 'i' && input[3] == 'a' && input[4] == 's' ) { // si commande alias
+        trim(input);
+        addAlias(input);
       } else {
-        logCmd(input, f);
-        node* root = constructTree(parsedInput, sizeInput);
-        displayTree( root);
-        readTree(root);
-        displayOutput("out");
-      }    
+        trim(input);
+
+        parsedInput = createCallocTab(10,40);
+        int sizeInput = parseControlOperator(input, parsedInput); // sépare la saisie par les opérateurs && et ||
+        printf("1 - %s\n", parsedInput[0]);
+        printf("2 - %s\n", parsedInput[1]);
+        printf("3 - %s\n", parsedInput[2]);
+        printf("4 - %s\n", parsedInput[3]);
+        printf("5 - %s\n", parsedInput[4]);
+        if(strcmp ("exit", parsedInput[0]) == 0) {
+          loopAlive = 0 ;
+        } else {
+          logCmd(input, f);
+          node* root = constructTree(parsedInput, sizeInput);
+          displayTree( root);
+          readTree(root);
+          displayOutput("out");
+        }    
+        //free(input);
+      }
     }
-    
   } while (loopAlive);
 
 }
