@@ -17,12 +17,11 @@
 char *readline(void)
 {
   char *line = NULL;
-  ssize_t bufsize = 0; // have getline allocate a buffer for us
-  getline(&line, &bufsize, stdin);
+  ssize_t bufsize = 0;
+  getline(&line, &bufsize, stdin); // recupère la valeur de l'entrée standard
   return line;
 }
 
-// function for parsing command words
 int parseSpace(char* str, char* parsed[])
 {
     int i;
@@ -45,15 +44,12 @@ int parseSpace(char* str, char* parsed[])
             i--;
     }
     int j = 0;
-    for(j = 0; j < i; j++) {
+    for(j = 0; j < i; j++) { //trim toutes les string obtenues
         trim(parsed[j]);
-        //printf("whitout space:%s\n", parsed[j]);
     }
     return i;
 }
-/**
- * Enlève les espaces en début de chaine
- */
+
 void ltrim(char * str)
 {
     int strIndex = 0;
@@ -68,7 +64,7 @@ void ltrim(char * str)
             str[i] = str[i + strIndex];
             i++;
         }
-        str[i] = '\0'; // Make sure that string is NULL terminated
+        str[i] = '\0'; //clos la string
     }
 }
 
@@ -86,7 +82,7 @@ void rtrim(char * str)
     while(str[strIndex-1] == ' ' || str[strIndex-1] == '\t' || str[strIndex-1] == '\n')
         strIndex = strIndex-1;
     if(strIndex != lastIndex )
-        str[strIndex] = '\0'; // Make sure that string is NULL terminated
+        str[strIndex] = '\0'; //clos la string
 }
 
 void trim(char str[]) {
@@ -97,11 +93,10 @@ void trim(char str[]) {
 void addChar(char c, char* stringToAdd) {
     if(c != '\n') {
         size_t len = strlen(stringToAdd);
-        char* test = malloc(sizeof(len) +2);
+        char* test = malloc(sizeof(len) +2);// longueur de la string + nouveau caractère + /0
         strcpy(test, stringToAdd);
-        test[len] = c; /* we overwriting the null-character with another one */
-        test[len + 1] = '\0';
-        //test[len] = '\0'; /* to make the string null-terminated again */
+        test[len] = c; // remplace le vieux /0 par le caractère
+        test[len + 1] = '\0'; // clos la string
         strcpy(stringToAdd,test);
         free(test);
     }        
@@ -110,10 +105,10 @@ void addChar(char c, char* stringToAdd) {
 int parseControlOperator(char* str, char** parsed) {
     int i, k;
     int j = 0;
-    for (i = 0; i < strlen(str); i++) {
-        if(str[i] == '|' || str[i] == '&'){
+    for (i = 0; i < strlen(str); i++) { // parcours chaque caractère
+        if(str[i] == '|' || str[i] == '&'){ 
             i++;
-            if(str[i] == '|' || str[i] == '&') {
+            if(str[i] == '|' || str[i] == '&') { // si on tombe sur && ou || alors nouveau string
                 j++;
                 addChar(str[i-1], parsed[j]);             
                 addChar(str[i], parsed[j]);             
@@ -127,7 +122,6 @@ int parseControlOperator(char* str, char** parsed) {
     }
     for(k = 0; k < j; k++) {
         trim(parsed[k]);
-        //printf("whitout space:%s\n", parsed[k]);
     }
     return j;
 }
@@ -139,7 +133,7 @@ int parseRedirectionFlux(char* str, char** parsed) {
         if(str[i] == '|' || str[i] == '>' || str[i] == '<'){
             i++;
             j++;
-            if(str[i] == '>' || str[i] == '<') {
+            if(str[i] == '>' || str[i] == '<') { // si on tombe sur << ou >>
                 addChar(str[i-1], parsed[j]);             
                 addChar(str[i], parsed[j]);             
                 j++;
@@ -155,12 +149,11 @@ int parseRedirectionFlux(char* str, char** parsed) {
     }
     for(k = 0;k < j; k++) {
         trim(parsed[k]);
-        //printf("whitout space:%s\n", parsed[k]);
     }
     return j;
 }
 
-char** createMallocTab(int x, int y) {
+char** createCallocTab(int x, int y) {
      char **a = calloc(x, sizeof(char *));
     for(int i = 0; i != x; i++) {
         a[i] = calloc(y, sizeof(char));

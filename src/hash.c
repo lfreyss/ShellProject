@@ -19,7 +19,6 @@ Section 6.6 of The C Programming Language.
 #define HASHSIZE 101
 static struct nlist *hashtab[HASHSIZE]; /* pointer table */
 
-/* hash: form hash value for string s */
 unsigned hash(char *s)
 {
     unsigned hashval;
@@ -28,7 +27,6 @@ unsigned hash(char *s)
     return hashval % HASHSIZE;
 }
 
-/* lookup: look for s in hashtab */
 struct nlist *lookup(char *s)
 {
     struct nlist *np;
@@ -39,7 +37,6 @@ struct nlist *lookup(char *s)
     return NULL; /* not found */
 }
 
-/* install: put (name, defn) in hashtab */
 struct nlist *install(char *name, char *defn)
 {
     struct nlist *np;

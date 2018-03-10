@@ -19,7 +19,6 @@
 #include "../header/typedef.h"
 
 
-// Function to print Current Directory.
 void printDir()
 {
     char cwd[1024];
@@ -59,13 +58,14 @@ bool runCommand(char **args){
   pid_t waitPid;
   int status;
 
-  int saved_stdout = dup(1);
+  int saved_stdout = dup(1); //mémorise la sortie standard pour pouvoir la restaurer
   int out; 
   int in;
   out = open("out", O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
   in = open("in", O_RDONLY);
-  dup2(out, 1);
+  dup2(out, 1); //écrit le resultat de la commande dans le fichier out pour faire les traitements avant l'affichage dans la sortie standard
   
+  //Si le fichier in n'est pas vide, alors switcher entre l'entré standard et le fichier in
   if(fileIsEmpty() == false){
     dup2(in,0);
   }
@@ -83,12 +83,12 @@ bool runCommand(char **args){
   } else {
     // On est dans le père
     do {
-      waitPid = waitpid(forkPid, &status, WUNTRACED);
+      waitPid = waitpid(forkPid, &status, WUNTRACED); //attend la fin du processus fils
       
     } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     close(out);
     close(in);
-    dup2(saved_stdout, 1);
+    dup2(saved_stdout, 1); //restaure la sortie standard
     close(saved_stdout);
   }
 
@@ -100,6 +100,7 @@ bool runCommand(char **args){
 }
 
 bool runEcho(char* str) {
+  //même principe que runCmd avec le fichier out
   int saved_stdout = dup(1);
   int out; 
   out = open("out", O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
@@ -131,70 +132,4 @@ bool execute(char **args){
     isSuccessfull = runCommand(args);
   }
   return isSuccessfull;
-}
-
-void error(const char *msg)
-{
-    perror(msg);
-    exit(EXIT_FAILURE);
-}
-
-void runPipe(char **cmd1, char **cmd2)
-{
-    int fd[2];
-    pid_t childPid;
-    pid_t waitPid;
-    int status;
-    if (pipe(fd) != 0)
-        error("failed to create pipe");
-
-    if ((childPid = fork()) == -1)
-        error("failed to fork");
-
-    if (childPid == 0)
-    {
-        dup2(fd[1], 1);
-        close(fd[0]);
-        close(fd[1]);
-        //status = execvp(cmd1[0], cmd1);
-        runCommand(cmd1);
-        //error("close1");
-        
-    }
-    else
-    {
-        dup2(fd[0], 0);
-        close(fd[0]);
-        close(fd[1]);
-        //status = execvp(cmd2[0], cmd2);
-        runCommand(cmd2);
-        //error("close2");
-    }
-}
-
-void runRedirection(char** cmd, char* outputFileName ) {
-   int out;
-  //char *grep_args[] = {"grep", "Villanova", NULL};
-
-  // open input and output files
-
-  //in = open("scores", O_RDONLY);
-  out = open(outputFileName, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
-
-  // replace standard input with input file
-
-  //dup2(in, 0);
-
-  // replace standard output with output file
-
-  dup2(out, 1);
-
-  // close unused file descriptors
-
-  //close(in);
-  close(out);
-
-  // execute grep
-
-  execvp(cmd[0],cmd);
 }

@@ -12,9 +12,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "../header/tree.h"
-#include "../header/stack.h"
-// A utility function to check if 'c'
-// is an operator
+
+
 bool isOperator(char* c)
 {
     if ((strcmp ("||", c) == 0) || (strcmp ("&&", c) == 0) || (strcmp ("|", c) == 0) || (strcmp (">", c) == 0) || (strcmp ("<", c) == 0) || (strcmp (">>", c) == 0) || (strcmp ("<<", c) == 0))
@@ -22,7 +21,6 @@ bool isOperator(char* c)
     return false;
 }
 
-// Utility function to do inorder traversal
 void inorder(node *t)
 {
     if(t)
@@ -33,7 +31,6 @@ void inorder(node *t)
     }
 }
 
-// A utility function to create a new node
 node* newNode()
 {
     node* temp = malloc(sizeof(node));
@@ -52,14 +49,14 @@ node* constructTree(char **input, int sizeInput)
 
     if(!isOperator(input[sizeInput])) {
         if(sizeInput != -1) {
-            char** parsedRedirectionInput = createMallocTab(strlen(input[sizeInput]),40);
-            int size = parseRedirectionFlux(input[sizeInput],parsedRedirectionInput);
-            if( size == 0){
+            char** parsedRedirectionInput = createCallocTab(strlen(input[sizeInput]),40);
+            int size = parseRedirectionFlux(input[sizeInput],parsedRedirectionInput); // vérifie si l'input contient des opérateurs de redirection de flux
+            if( size == 0){ // si non on est arrivé à une feuille
                 rightLeaf->value = input[sizeInput];
-            } else {
+            } else { // si oui, continuer la construction de l'arbre
                 rightLeaf = constructTree(parsedRedirectionInput, size);
             }
-        } else {
+        } else { // on est arrivé à la dernière commande
             rightLeaf->value = input[sizeInput];
         }
         sizeInput--;
@@ -77,13 +74,6 @@ node* constructTree(char **input, int sizeInput)
 }
 
 
-
-/**
-* \fn char afficherArbre( NOEUD *noeud )
-* \brief Fonction affichant rÃ©cursivement les noeuds de l'arbre de droite Ã  gauche
-* \param noeud La racine de l'arbre Ã  afficher sur la sortie standard
-* \return La valeur du noeud lu (avant appels recursifs sur ses noeuds fils)
-*/
 char* displayTree( node* noeud ){
     if ( noeud != NULL ){
         printf("\t\tNoeud..................... [%s]\n", noeud->value);

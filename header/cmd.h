@@ -17,15 +17,59 @@
 #include "typedef.h"
 #include "helper.h"
 
-
+/**
+ * \fn void runHelp()
+ * \brief Fonction permettant la lecture d'un help
+ * \author vlambs
+ * \param 
+ * \return void
+ */
 void runHelp();
+
+/**
+ * \fn int execute()
+ * \brief Fonction permettant de rediriger les commandes vers les fonctions d'executions corespondantes
+ * \author vlambs
+ * \param tableau de string contenant la commande a éxécuter et ses arguments/options
+ * \return void
+ */
 int execute(char **args);
+
+/**
+ * \fn void printDir()
+ * \brief Fonction permettant d'afficher le dossier courant lors de l'attente d'une saisie dans l'entrée standard
+ * \author lfreyss
+ * \param void
+ * \return void
+ */
 void printDir();
+
+/**
 int runCommand(char **args);
+ * \fn int runCommand()
+ * \brief  Fonction permettant l'execution via un fork et execvp des commandes simples du shell
+ * \author vlambs/lfreyss
+ * \param tableau de string contenant la commande a éxécuter et ses arguments/options
+ * \return Succès de la commande ou non
+ */
+int runCommand(char **args);
+
+/**
+ * \fn int runCd(char **args);
+ * \brief Fonction permettant l'execution de la fonction build in cd
+ * \author vlambs
+ * \param tableau de string contenant la commande a éxécuter et ses arguments/options
+ * \return Succès de la commande ou non
+ */
 int runCd(char **args);
+
+/**
+ * \fn bool runEcho(char* str);
+ * \brief Fonction permettant l'exectuion de la fonction build in echo
+ * \author lfreyss
+ * \param tableau de string contenant la commande a éxécuter et ses arguments/options
+ * \return Succès de la commande ou non
+ */
 bool runEcho(char* str);
-void error(const char *msg);
-void runPipe(char **command1, char **command2);
-void runRedirection(char** cmd, char* outputFileName );
 #endif
 

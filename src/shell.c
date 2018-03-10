@@ -18,20 +18,19 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include "../header/shell.h"
+#include "../header/hash.h"
 #include "../header/tree.h"
-#include "../header/stack.h"
 #include "../header/cmd.h"
 #include "../header/log.h"
 #include "../header/typedef.h"
-
+#include "../header/shell.h"
 
 
 bool status = false;
 
 char* readTree(node* root) {
     if(root != NULL) {
-        if(strcmp ("<", root->value) == 0) {
+        if(strcmp ("<", root->value) == 0) { // effectue la commande sur le contenu du fichier root->right
             int saved_stin = dup(0);
             trim(root->right->value);
             copyContentFile("in",root->right->value, false);
@@ -39,12 +38,12 @@ char* readTree(node* root) {
             fclose(fopen("in", "w"));
             dup2(saved_stin, 0);
             close(saved_stin);
-        } else if(strcmp ("<<", root->value) == 0) {
+        } else if(strcmp ("<<", root->value) == 0) { //effectue la commande sur un contenu multiple ligne de l'entrée standard
             int saved_stin = dup(0);
             trim(root->right->value);
             char* input = readline();
             trim(input);
-            while(strcmp (input, root->right->value) != 0) {
+            while(strcmp (input, root->right->value) != 0) {// ajoute chaque ligne saisie au fichier in
               addContentToFile(input);
               input = readline();
               trim(input); 
@@ -57,31 +56,31 @@ char* readTree(node* root) {
         } else
           readTree(root->left);
         
-        printf("Commande : %s\n", root->value);
+        //printf("Commande : %s\n", root->value);
         if(isOperator(root->value)) {
-            if(strcmp ("&&", root->value) == 0) {
+            if(strcmp ("&&", root->value) == 0) { // s'effectue si la commande précédente a réussie
               if(status == 1) {
                 displayOutput("out");
                 readTree(root->right);
                 status = 1;
               }
-            } else if(strcmp ("||", root->value) == 0) {
+            } else if(strcmp ("||", root->value) == 0) {//s'effectue si la commande précédente n'a pas réussie
               if(status == 0) {
                 readTree(root->right);
               }
-            } else if(strcmp (">", root->value) == 0) {
+            } else if(strcmp (">", root->value) == 0) { // écrit dans un fichier root->right->value le resultat de la commande
               //readTree(root->right);
               trim(root->right->value);
               copyContentFile(root->right->value, "out", false);
               fclose(fopen("out", "w"));
 
-            } else if(strcmp (">>", root->value) == 0) {
+            } else if(strcmp (">>", root->value) == 0) { // ajoute au fichier root->right->value le resultat de la commande
               //readTree(root->right);
               trim(root->right->value);
               copyContentFile(root->right->value, "out", true);
               fclose(fopen("out", "w"));
 
-            } else if(strcmp ("|", root->value) == 0) {
+            } else if(strcmp ("|", root->value) == 0) { // effectue la commande root->right->value sur le resutlat de la commande root->left->value contenu dans le fichier in
               int saved_stin = dup(0);
               copyContentFile("in", "out", false);
               readTree(root->right);
@@ -89,13 +88,18 @@ char* readTree(node* root) {
               dup2(saved_stin, 0);
               close(saved_stin);
             }
-        } else {
-          char** arguments = createMallocTab(5,40);// root->value, NULL };
+        } else { //execute la commande
+          char** arguments = createCallocTab(5,40);
+            //vérifie si la saisie est un alias
+          struct nlist* alias = lookup(root->value);
+          if(alias != NULL) {
+            root->value = alias->defn;
+          }
+          
           parseSpace(root->value, arguments);
+
           status = execute(arguments);
           free(arguments);
-    //freeMallocTab(arguments, 5);
-          
         }
         return root->value;
     }
@@ -104,19 +108,12 @@ char* readTree(node* root) {
 }
 void addAlias(char* input) {
   const char delimiters[] = "=";
-  char *alias = strtok (input, " ");      /* token => "words" */
-  char *name = strtok (NULL, delimiters);    /* token => "separated" */
-  char *def = strtok (NULL, delimiters);    /* token => "separated" */
+  char *alias = strtok (input, " "); // supprime la commande alias
+  char *name = strtok (NULL, delimiters);   // sépare le nom de la définition pour la HASHMAP
+  char *def = strtok (NULL, delimiters);  
   struct nlist* hash = install(name,def);
 }
 
-/**
- * \fn void bash_loop (void)
- * \brief Fonction de test.
- * \author vlambs
- * \param void
- * \return void
- */
 void bash_loop(FILE *f)
 {
 
@@ -124,23 +121,20 @@ void bash_loop(FILE *f)
   char* line;
   do {
     printDir();
-    //flush_stdin();
     char** parsedInput;
-    char* input = readline();
-    if(input[0] == 'a' && input[1] == 'l' && input[2] == 'i' && input[3] == 'a' && input[4] == 's' ) {
+    char* input = readline(); // attend une saisie
+    if(input[0] == 'a' && input[1] == 'l' && input[2] == 'i' && input[3] == 'a' && input[4] == 's' ) { // si commande alias
       trim(input);
       addAlias(input);
     } else {
       trim(input);
-      struct nlist* alias = lookup(input);
-      if(alias != NULL) {
-        input = alias->defn;
-      }
-      parsedInput = createMallocTab(10,40);
+
+    
+      parsedInput = createCallocTab(10,40);
       
       //printf("input: %s\n",input);
 
-      int sizeInput = parseControlOperator(input, parsedInput);
+      int sizeInput = parseControlOperator(input, parsedInput); // sépare la saisie par les opérateurs && et ||
       free(input);
       // printf("1 - %s\n", parsedInput[0]);
       // printf("2 - %s\n", parsedInput[1]);
@@ -163,13 +157,6 @@ void bash_loop(FILE *f)
 }
 
 
-/**
- * \fn int main (void)
- * \brief Main
- * \author vlambs
- * \param argc(int) et argv (char*)
- * \return EXIT_SUCCESS
- */
 int main(int argc, char* argv)
 {
   resetLogFile();

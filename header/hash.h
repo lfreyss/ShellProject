@@ -18,9 +18,22 @@ Section 6.6 of The C Programming Language.
 
 unsigned hash(char *s);
 
-/* lookup: look for s in hashtab */
+/**
+ * \fn struct nlist *lookup(char *s);
+ * \brief Fonction permettant de parcourir la HashMap et de trouver l'élement voulu
+ * \author lfreyss
+ * \param chaine de caractère que l'on recherche
+ * \return Struct nlist recherchée ou null si non trouvée
+ */
 struct nlist *lookup(char *s);
-/* install: put (name, defn) in hashtab */
+
+/**
+ * \fn bool nlist *install(char *name, char *defn);
+ * \brief Fonction permettant de rajouter un élément à la HashMap
+ * \author lfreyss
+ * \param name -> nom du hashmap; defn -> valeur du hashmap
+ * \return nlist que l'on vient de rajouter
+ */
 struct nlist *install(char *name, char *defn);
 
 #endif

@@ -1,0 +1,26 @@
+total 776
+drwxrwxr-x 8 laurent laurent   4096 mars  10 15:10 .
+drwxrwxr-x 7 laurent laurent   4096 mars   7 11:22 ..
+-rw-rw-r-- 1 laurent laurent 623489 mars   8 12:16 00-project.pdf
+-rw-rw-r-- 1 laurent laurent   8728 mars  10 15:05 cmd.o
+drwxrwxr-x 2 laurent laurent   4096 mars   8 12:16 doc
+drwxrwxr-x 8 laurent laurent   4096 mars  10 15:11 .git
+-rw-rw-r-- 1 laurent laurent    430 janv. 24 11:17 .gitignore
+-rw-rw-r-- 1 laurent laurent   5056 mars  10 15:05 hash.o
+drwxrwxr-x 2 laurent laurent   4096 mars  10 13:39 header
+-rw-rw-r-- 1 laurent laurent  14640 mars  10 15:05 helper.o
+-rw-rw-r-- 1 laurent laurent      0 mars   8 13:45 in
+-rw-rw-r-- 1 laurent laurent      0 mars  10 15:11 logCmd.txt
+-rw-rw-r-- 1 laurent laurent   6376 mars  10 15:05 log.o
+-rw-rw-r-- 1 laurent laurent    431 mars   8 12:16 Makefile
+drwxrwxr-x 2 laurent laurent   4096 févr.  7 10:44 obj
+-rw-rw---- 1 laurent laurent      0 mars  10 15:11 out
+-rw-rw-r-- 1 laurent laurent   4642 mars   8 12:16 README.md
+-rwxrwxr-x 1 laurent laurent  35336 mars  10 15:10 shell
+-rw-rw-r-- 1 laurent laurent  13136 mars  10 15:10 shell.o
+drwxrwxr-x 2 laurent laurent   4096 mars  10 13:40 src
+-rw-rw-r-- 1 laurent laurent   7392 mars   8 12:22 stack.o
+-rw-rw-r-- 1 laurent laurent    234 mars   8 12:16 test
+-rw-rw-r-- 1 laurent laurent   7336 mars  10 15:08 tree.o
+drwxrwxr-x 2 laurent laurent   4096 mars  10 15:10 .vscode
+/home/laurent/CNAM/SE/ShellProject
