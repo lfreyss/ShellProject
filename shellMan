@@ -1,0 +1,24 @@
+SHELLPROJECT C "March 20, 2018" "" "C Program"
+
+
+NAME
+  shell - basic shell
+
+
+SYNOPSIS
+       ./shell [OPTION]... [COMMAND]...
+
+
+
+DESCRIPTION
+  Our program can be launched in two different ways: the basic way, which enable the  user to input bash commands, and another way, called batch mode which execute a bash command, 
+  passed as   parameter.
+
+
+EXAMPLE
+  -   ./shell
+  -   ./shell -p "ls -l | cd"
+
+
+AUTHOR
+  .I Laurent FREYSS & Victor LAMBS
