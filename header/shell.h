@@ -34,6 +34,25 @@ void addAlias(char* input);
 char* readTree(node* root);
 
 /**
+ * \fn int runInBackground(char* completeInput, int index);
+ * \brief Fonction permettant de lancer en arrière plan les commandes saisies
+ * \author lfreyss
+ * \param String contenant la saisie de l'entrée standard, numéro d'index du char & à retirer
+ * \return
+ */
+int runInBackground(char* completeInput, int index);
+
+/**
+ * \fn void launchProcess(char* completeInput);
+ * \brief Fonction permettant lancer la série de commande en avant plan
+ * \author lfreyss
+ * \param String contenant la saisie de l'entrée standard
+ * \return Statut du shell (doit quitter : 0; continuer la boucle: 1)
+ */
+int launchProcess(char* completeInput);
+
+
+/**
  * \fn void bash_loop(FILE *f);
  * \brief Fonction permettant de boucler notre programme tant que la commande exit n'est pas entré par l'utilisateur
  * \author lfreyss

@@ -106,12 +106,68 @@ char* readTree(node* root) {
 
     return "end";   
 }
+
 void addAlias(char* input) {
   const char delimiters[] = "=";
   char *alias = strtok (input, " "); // supprime la commande alias
   char *name = strtok (NULL, delimiters);   // sépare le nom de la définition pour la HASHMAP
   char *def = strtok (NULL, delimiters);  
   struct nlist* hash = install(name,def);
+}
+
+int runInBackground(char* completeInput, int index) {
+           
+      memmove(&completeInput[index],&completeInput[index +1], strlen(completeInput) - index);
+      int forkPid;
+      forkPid = fork();
+      if (forkPid == 0) {
+        printf("Launch cmd in background..\n");
+        int loopAlive = launchProcess(completeInput);
+        // On est dans le fils
+        if (status == -1) {
+          printf("Une erreur est survenue lors de l'execution de la commande.\n");
+        }
+        exit(1);
+      } else if (forkPid < 0) {
+        printf("Une erreur est survenue lors de la création du processus fils.\n");
+      }
+}
+
+int launchProcess(char* completeInput) {
+  char** parsedInput;
+  char** parsedString;
+  parsedString = createCallocTab(10,40);
+  char* seperator = ";";
+  char* input = "";
+  int sizeParse = parseString(completeInput, parsedString, seperator);
+
+  int i = 0;
+  for(i=0; i<sizeParse;i++) {
+    input = parsedString[i];
+    if(input[0] == 'a' && input[1] == 'l' && input[2] == 'i' && input[3] == 'a' && input[4] == 's' ) { // si commande alias
+      trim(input);
+      addAlias(input);
+    } else {
+      trim(input);
+
+      parsedInput = createCallocTab(10,40);
+      int sizeInput = parseControlOperator(input, parsedInput); // sépare la saisie par les opérateurs && et ||
+      // printf("1 - %s\n", parsedInput[0]);
+      // printf("2 - %s\n", parsedInput[1]);
+      // printf("3 - %s\n", parsedInput[2]);
+      // printf("4 - %s\n", parsedInput[3]);
+      // printf("5 - %s\n", parsedInput[4]);
+      if(strcmp ("exit", parsedInput[0]) == 0) {
+        return 0 ;
+      } else {
+        node* root = constructTree(parsedInput, sizeInput);
+        //displayTree( root);
+        readTree(root);
+        displayOutput("out");
+      }    
+    }
+  }
+  return 1;
 }
 
 void bash_loop(FILE *f)
@@ -121,44 +177,19 @@ void bash_loop(FILE *f)
   char* line;
   do {
     printDir();
-    char** parsedInput;
-    char** parsedString;
+
     char* completeInput = readline(); // attend une saisie
-
     printf("input: %s\n",completeInput);
-    parsedString = createCallocTab(10,40);
-    char* seperator = ";";
-    char* input = "";
-    int sizeParse = parseString(completeInput, parsedString, seperator);
+    logCmd(completeInput, f);
 
-    int i = 0;
-    for(i=0; i<sizeParse;i++) {
-      input = parsedString[i];
-      if(input[0] == 'a' && input[1] == 'l' && input[2] == 'i' && input[3] == 'a' && input[4] == 's' ) { // si commande alias
-        trim(input);
-        addAlias(input);
-      } else {
-        trim(input);
-
-        parsedInput = createCallocTab(10,40);
-        int sizeInput = parseControlOperator(input, parsedInput); // sépare la saisie par les opérateurs && et ||
-        printf("1 - %s\n", parsedInput[0]);
-        printf("2 - %s\n", parsedInput[1]);
-        printf("3 - %s\n", parsedInput[2]);
-        printf("4 - %s\n", parsedInput[3]);
-        printf("5 - %s\n", parsedInput[4]);
-        if(strcmp ("exit", parsedInput[0]) == 0) {
-          loopAlive = 0 ;
-        } else {
-          logCmd(input, f);
-          node* root = constructTree(parsedInput, sizeInput);
-          displayTree( root);
-          readTree(root);
-          displayOutput("out");
-        }    
-        //free(input);
-      }
+    trim(completeInput);
+    int index = strlen(completeInput) -1;
+    if(completeInput[index] == '&') {
+      runInBackground(completeInput, index);
+    } else {
+      loopAlive = launchProcess(completeInput);
     }
+   
   } while (loopAlive);
 
 }
