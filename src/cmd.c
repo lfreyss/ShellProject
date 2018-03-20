@@ -18,12 +18,14 @@
 #include <sys/stat.h>
 #include "../header/typedef.h"
 
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
 
 void printDir()
 {
     char cwd[1024];
     getcwd(cwd, sizeof(cwd));
-    printf("\n%s >>>", cwd);
+    printf("\n" ANSI_COLOR_GREEN "%s >>> " ANSI_COLOR_RESET, cwd);
 }
 
 
@@ -41,16 +43,18 @@ int runCd(char **args){
   int error;
   error = 1;
    if (args[1] == NULL) {
-    printf("Utilisation incorrecte de la commande CD\n");
+    perror("Utilisation incorrecte de la commande CD");
+    error = 0;
+  } else if (chdir(args[1]) != 0) {
+    perror("Le dossier n'existe pas.");
     error = 0;
   } else {
-    if (chdir(args[1]) != 0) {
-      printf("Le dossier n'existe pas.\n");
-      error = 0;
-    }
+    chdir(args);
   }
   return error;
 }
+
+
 
 bool runCommand(char **args){
 
@@ -75,16 +79,15 @@ bool runCommand(char **args){
     // On est dans le fils
     status = execvp(args[0], args);
     if (status == -1) {
-      printf("Une erreur est survenue lors de l'execution de la commande.\n");
+      perror("Erreur lors de l'exécution du processus fils");
     }
     exit(EXIT_FAILURE);
   } else if (forkPid < 0) {
-    printf("Une erreur est survenue lors de la création du processus fils.\n");
+    perror("Erreur lors de le création du processus fils");
   } else {
     // On est dans le père
     do {
       waitPid = waitpid(forkPid, &status, WUNTRACED); //attend la fin du processus fils
-      
     } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     close(out);
     close(in);
@@ -105,7 +108,28 @@ bool runEcho(char* str) {
   int out; 
   out = open("out", O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
   dup2(out, 1);
-  printf("%s\n",str);
+  if(str != NULL)
+    printf("%s\n",str);
+  else 
+    printf("Argument manquant");
+
+  close(out);    
+  dup2(saved_stdout, 1);
+  close(saved_stdout);
+  return true;
+}
+
+int runPwd() {
+   //même principe que runCmd avec le fichier out
+  int saved_stdout = dup(1);
+  int out; 
+  out = open("out", O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+  dup2(out, 1);
+ 
+  char cwd[1024];
+  getcwd(cwd, sizeof(cwd));
+  printf("%s", cwd);
+
   close(out);    
   dup2(saved_stdout, 1);
   close(saved_stdout);
@@ -124,9 +148,10 @@ bool execute(char **args){
     runEcho(args[1]);
   }
   else if (strcmp ("cd", args[0]) == 0){
-    if (runCd(args) == 1){
-      isSuccessfull = runCommand(args);
-    }
+    runCd(args);
+    fclose(fopen("out", "w"));
+  } else if (strcmp ("pwd", args[0]) == 0){
+    runPwd();
   }
   else {
     isSuccessfull = runCommand(args);

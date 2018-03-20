@@ -190,7 +190,7 @@ void copyContentFile(char* writefilename,char* readfilename, bool overide) {
 
     fp1 = fopen(readfilename, "r");
     if (fp1 == NULL) {
-      puts("cannot open out file");
+      perror("cannot open out file");
       exit(0);
     }
     if(overide == true) 
@@ -198,7 +198,7 @@ void copyContentFile(char* writefilename,char* readfilename, bool overide) {
     else
         fp2 = fopen(writefilename, "w"); // remplace le contenu
     if (fp2 == NULL) {
-      puts("cannot open in file");
+      perror("cannot open in file");
       fclose(fp1);
       exit(0);
     }

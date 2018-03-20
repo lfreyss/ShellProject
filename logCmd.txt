@@ -1,6 +1,4 @@
 ls
 
-cd
-
-echo
+ls | grep he
 
