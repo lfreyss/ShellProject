@@ -32,6 +32,14 @@ char *readline(void);
  * \return
  */
 int parseSpace(char* str, char* parsed[]);
+
+/**
+ * \fn int parseString(char* str, char* parsed[], char* sep);
+ * \brief Fonction permettant de séparer une chaine de caractère par un caractère pré-définie
+ * \author lfreyss
+ * \param str -> chaine de caractère à séparer; parsed[] -> tab de string contenant les string séprarés, sep -> char de sépération
+ * \return
+ */
 int parseString(char* str, char* parsed[], char* sep);
 
 /**

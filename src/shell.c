@@ -13,11 +13,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 #include <unistd.h>
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+
 #include "../header/hash.h"
 #include "../header/tree.h"
 #include "../header/cmd.h"
@@ -125,11 +127,13 @@ int runInBackground(char* completeInput, int index) {
         int loopAlive = launchProcess(completeInput);
         // On est dans le fils
         if (status == -1) {
+          perror("Erreur lors de l'execution du processus fils");
           printf("Une erreur est survenue lors de l'execution de la commande.\n");
         }
         exit(1);
       } else if (forkPid < 0) {
-        printf("Une erreur est survenue lors de la création du processus fils.\n");
+        perror("Erreur lors de le création du processus fils");
+        
       }
 }
 
@@ -179,7 +183,7 @@ void bash_loop()
     printDir();
 
     char* completeInput = readline(); // attend une saisie
-    printf("input: %s\n",completeInput);
+    //printf("input: %s\n",completeInput);
     logCmd(completeInput);
 
     trim(completeInput);

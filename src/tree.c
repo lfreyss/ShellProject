@@ -21,16 +21,6 @@ bool isOperator(char* c)
     return false;
 }
 
-void inorder(node *t)
-{
-    if(t)
-    {
-        inorder(t->left);
-        printf("%s ", t->value);
-        inorder(t->right);
-    }
-}
-
 node* newNode()
 {
     node* temp = malloc(sizeof(node));
