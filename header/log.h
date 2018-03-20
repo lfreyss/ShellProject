@@ -1,5 +1,5 @@
 /**
- * \file helper.h
+ * \file log.h
  * \brief helper header.
  * \author vlambs
  * \version 0.1
@@ -15,7 +15,22 @@
 #ifndef _LOG_H_
 #define _LOG_H_
 
+/**
+ * \fn char resetLogFile();
+ * \brief Méthode permettant de vider le fichier de log
+ * \author vlambs
+ * \param 
+ * \return nothing
+ */
 void resetLogFile();
-void logCmd(char* cmdLine, FILE *f);
+
+/**
+ * \fn char logCmd(char*);
+ * \brief Méthode permettant d'insérer une ligne dans le fichier de log
+ * \author vlambs
+ * \param 
+ * \return nothing
+ */
+void logCmd(char* cmdLine);
 
 #endif

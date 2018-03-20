@@ -11,27 +11,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/**
- * \fn void logCmd (void)
- * \brief Insérer une ligne saisien dans le fichier de log
- * \author vlambs
- * \param char*, FILE
- * \return void
- */
-void logCmd(char* cmdLine, FILE *f) {
+
+void logCmd(char* cmdLine) {
+    FILE *f = fopen("logCmd.txt", "a+");
     if(f == NULL){
         printf("An error happened while logging the command line.");
         exit(1);
     }
     fprintf(f, "%s\n", cmdLine);
+    fclose(f);
 }
-/**
- * \fn void resetLogFile (void)
- * \brief Vider le fichier de log des commandes
- * \author vlambs
- * \param void
- * \return void
- */
+
 void resetLogFile(){
     FILE *f = fopen("logCmd.txt", "wb");
     if(!f){

@@ -170,7 +170,7 @@ int launchProcess(char* completeInput) {
   return 1;
 }
 
-void bash_loop(FILE *f)
+void bash_loop()
 {
 
   int loopAlive = 1;
@@ -180,7 +180,7 @@ void bash_loop(FILE *f)
 
     char* completeInput = readline(); // attend une saisie
     printf("input: %s\n",completeInput);
-    logCmd(completeInput, f);
+    logCmd(completeInput);
 
     trim(completeInput);
     int index = strlen(completeInput) -1;
@@ -198,8 +198,6 @@ void bash_loop(FILE *f)
 int main(int argc, char* argv)
 {
   resetLogFile();
-  FILE *f = fopen("logCmd.txt", "w");
-  bash_loop(f);
-  fclose(f);
+  bash_loop();
   return EXIT_SUCCESS;
 }

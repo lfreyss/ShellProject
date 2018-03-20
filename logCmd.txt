@@ -1,22 +1,6 @@
-ls &
+ls
 
-ls &
+cd
 
-n
-
-ls &
-
-n
-
-ls | grep he &
-
-ls &
-
-n
-
-ls | grep he &
-
-echo lol
-
-echo lol&
+echo
 
