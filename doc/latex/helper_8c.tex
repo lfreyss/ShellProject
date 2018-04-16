@@ -1,0 +1,377 @@
+\hypertarget{helper_8c}{}\section{src/helper.c File Reference}
+\label{helper_8c}\index{src/helper.\+c@{src/helper.\+c}}
+
+
+Fichier contenant les fonctions d\textquotesingle{}helper.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}../header/typedef.\+h\char`\"{}}\\*
+Include dependency graph for helper.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{helper_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{helper_8c_a4ac40b6eb62ee09336c690894977841a}{readline} (void)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de lire la saisie de l\textquotesingle{}entrée standard. \end{DoxyCompactList}\item 
+int \hyperlink{helper_8c_a1e941fcaa0b19e24f436561f13fff047}{parse\+Space} (char $\ast$str, char $\ast$parsed\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Fonction permettant de séparer une chaine de caractère par des espaces. \end{DoxyCompactList}\item 
+int \hyperlink{helper_8c_a1db78452432b56ef399a0b054b62a638}{parse\+String} (char $\ast$str, char $\ast$parsed\mbox{[}$\,$\mbox{]}, char $\ast$sep)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de séparer une chaine de caractère par un caractère pré-\/définie. \end{DoxyCompactList}\item 
+void \hyperlink{helper_8c_a1d9ff13ca6fbfeed019ff8459a2d7b27}{ltrim} (char $\ast$str)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de supprimer les espaces, les tabulations et sauts de ligne en début de string. \end{DoxyCompactList}\item 
+void \hyperlink{helper_8c_a36c31afc53e5a1e87177eff988d6d17e}{rtrim} (char $\ast$str)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de supprimer les espaces, les tabulations et sauts de ligne en fin de string. \end{DoxyCompactList}\item 
+void \hyperlink{helper_8c_a67a5c19d5a2782a49836a0b9190b88f8}{trim} (char str\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Fonction permettant d\textquotesingle{}appeler le rtrim et ltrim en un seul appel. \end{DoxyCompactList}\item 
+void \hyperlink{helper_8c_a18c4769c27205c182ebca5ff7499c1ab}{add\+Char} (char c, char $\ast$string\+To\+Add)
+\begin{DoxyCompactList}\small\item\em Concatène un caractère à une chaine de caractère. \end{DoxyCompactList}\item 
+int \hyperlink{helper_8c_a6dc328bf1c07bf8d8c87aab9ab66658f}{parse\+Control\+Operator} (char $\ast$str, char $\ast$$\ast$parsed)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de découper une string par les opérateurs de control, à savoir \&\& et $\vert$$\vert$. \end{DoxyCompactList}\item 
+int \hyperlink{helper_8c_a983ac2428db05783a35c1341febb9d37}{parse\+Redirection\+Flux} (char $\ast$str, char $\ast$$\ast$parsed)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de découper une string par les opérateurs de redirection de flux, à savoir $\vert$,\&,$<$,$>$,$<$$<$,$>$$>$ \end{DoxyCompactList}\item 
+char $\ast$$\ast$ \hyperlink{helper_8c_a7e3caf7b27708ecf1215a42ab4ebfe91}{create\+Calloc\+Tab} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de créer un tableau de chaine de caractère. \end{DoxyCompactList}\item 
+void \hyperlink{helper_8c_a00eacdb7422e4261253801a228a102a0}{copy\+Content\+File} (char $\ast$writefilename, char $\ast$readfilename, \hyperlink{typedef_8h_a1062901a7428fdd9c7f180f5e01ea056}{bool} overide)
+\begin{DoxyCompactList}\small\item\em Fonction permettant la copie du contenu d\textquotesingle{}un fichier vers un autre. \end{DoxyCompactList}\item 
+\hyperlink{typedef_8h_a1062901a7428fdd9c7f180f5e01ea056}{bool} \hyperlink{helper_8c_a9b39605351f88642b3f802a77a607185}{file\+Is\+Empty} ()
+\begin{DoxyCompactList}\small\item\em Fonction permettant de check si un fichier est vide ou non. \end{DoxyCompactList}\item 
+void \hyperlink{helper_8c_aaebc21a8340b94ee50729f1d95a3b389}{display\+Output} (char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de afficher le contenu d\textquotesingle{}un fichier sur la sortie standard. \end{DoxyCompactList}\item 
+void \hyperlink{helper_8c_a91810b2c3cb895cb752b64be77c8c4a1}{add\+Content\+To\+File} (char $\ast$str)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de rajouter du contenu à un fichier. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Fichier contenant les fonctions d\textquotesingle{}helper. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+20180207
+\end{DoxyDate}
+Fichier contenant les fonctionnalité . 
+
+\subsection{Function Documentation}
+\index{helper.\+c@{helper.\+c}!add\+Char@{add\+Char}}
+\index{add\+Char@{add\+Char}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{add\+Char(char c, char $\ast$string\+To\+Add)}{addChar(char c, char *stringToAdd)}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Char (
+\begin{DoxyParamCaption}
+\item[{char}]{c, }
+\item[{char $\ast$}]{string\+To\+Add}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a18c4769c27205c182ebca5ff7499c1ab}{}\label{helper_8c_a18c4769c27205c182ebca5ff7499c1ab}
+
+
+Concatène un caractère à une chaine de caractère. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em Caractère} & à concatèner, chaine de caractère à concatèner \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{helper.\+c@{helper.\+c}!add\+Content\+To\+File@{add\+Content\+To\+File}}
+\index{add\+Content\+To\+File@{add\+Content\+To\+File}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{add\+Content\+To\+File(char $\ast$str)}{addContentToFile(char *str)}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Content\+To\+File (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a91810b2c3cb895cb752b64be77c8c4a1}{}\label{helper_8c_a91810b2c3cb895cb752b64be77c8c4a1}
+
+
+Fonction permettant de rajouter du contenu à un fichier. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em String} & à ajouter au contenu du fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{helper.\+c@{helper.\+c}!copy\+Content\+File@{copy\+Content\+File}}
+\index{copy\+Content\+File@{copy\+Content\+File}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{copy\+Content\+File(char $\ast$writefilename, char $\ast$readfilename, bool overide)}{copyContentFile(char *writefilename, char *readfilename, bool overide)}}]{\setlength{\rightskip}{0pt plus 5cm}void copy\+Content\+File (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{writefilename, }
+\item[{char $\ast$}]{readfilename, }
+\item[{{\bf bool}}]{overide}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a00eacdb7422e4261253801a228a102a0}{}\label{helper_8c_a00eacdb7422e4261253801a228a102a0}
+
+
+Fonction permettant la copie du contenu d\textquotesingle{}un fichier vers un autre. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em writefilename} & -\/$>$ fichier de destination, readfilename -\/$>$ fichier source, overide -\/$>$ ajouter au contenu ou le remplacer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{helper.\+c@{helper.\+c}!create\+Calloc\+Tab@{create\+Calloc\+Tab}}
+\index{create\+Calloc\+Tab@{create\+Calloc\+Tab}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{create\+Calloc\+Tab(int x, int y)}{createCallocTab(int x, int y)}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$$\ast$ create\+Calloc\+Tab (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a7e3caf7b27708ecf1215a42ab4ebfe91}{}\label{helper_8c_a7e3caf7b27708ecf1215a42ab4ebfe91}
+
+
+Fonction permettant de créer un tableau de chaine de caractère. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/$>$ nombre de chaine de caractère, y -\/$>$ nombre de caractère dans une chaine de caractère \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Le tableau de chaine de caractère 
+\end{DoxyReturn}
+\index{helper.\+c@{helper.\+c}!display\+Output@{display\+Output}}
+\index{display\+Output@{display\+Output}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{display\+Output(char $\ast$filename)}{displayOutput(char *filename)}}]{\setlength{\rightskip}{0pt plus 5cm}void display\+Output (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{filename}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_aaebc21a8340b94ee50729f1d95a3b389}{}\label{helper_8c_aaebc21a8340b94ee50729f1d95a3b389}
+
+
+Fonction permettant de afficher le contenu d\textquotesingle{}un fichier sur la sortie standard. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em Nom} & du fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{helper.\+c@{helper.\+c}!file\+Is\+Empty@{file\+Is\+Empty}}
+\index{file\+Is\+Empty@{file\+Is\+Empty}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{file\+Is\+Empty()}{fileIsEmpty()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} file\+Is\+Empty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a9b39605351f88642b3f802a77a607185}{}\label{helper_8c_a9b39605351f88642b3f802a77a607185}
+
+
+Fonction permettant de check si un fichier est vide ou non. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{helper.\+c@{helper.\+c}!ltrim@{ltrim}}
+\index{ltrim@{ltrim}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{ltrim(char $\ast$str)}{ltrim(char *str)}}]{\setlength{\rightskip}{0pt plus 5cm}void ltrim (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a1d9ff13ca6fbfeed019ff8459a2d7b27}{}\label{helper_8c_a1d9ff13ca6fbfeed019ff8459a2d7b27}
+
+
+Fonction permettant de supprimer les espaces, les tabulations et sauts de ligne en début de string. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em String} & à examiner \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{helper.\+c@{helper.\+c}!parse\+Control\+Operator@{parse\+Control\+Operator}}
+\index{parse\+Control\+Operator@{parse\+Control\+Operator}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{parse\+Control\+Operator(char $\ast$str, char $\ast$$\ast$parsed)}{parseControlOperator(char *str, char **parsed)}}]{\setlength{\rightskip}{0pt plus 5cm}int parse\+Control\+Operator (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str, }
+\item[{char $\ast$$\ast$}]{parsed}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a6dc328bf1c07bf8d8c87aab9ab66658f}{}\label{helper_8c_a6dc328bf1c07bf8d8c87aab9ab66658f}
+
+
+Fonction permettant de découper une string par les opérateurs de control, à savoir \&\& et $\vert$$\vert$. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em String} & a découper, tab de string contenant la chaine de caractère découpé \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nombre de string dans le tableau 
+\end{DoxyReturn}
+\index{helper.\+c@{helper.\+c}!parse\+Redirection\+Flux@{parse\+Redirection\+Flux}}
+\index{parse\+Redirection\+Flux@{parse\+Redirection\+Flux}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{parse\+Redirection\+Flux(char $\ast$str, char $\ast$$\ast$parsed)}{parseRedirectionFlux(char *str, char **parsed)}}]{\setlength{\rightskip}{0pt plus 5cm}int parse\+Redirection\+Flux (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str, }
+\item[{char $\ast$$\ast$}]{parsed}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a983ac2428db05783a35c1341febb9d37}{}\label{helper_8c_a983ac2428db05783a35c1341febb9d37}
+
+
+Fonction permettant de découper une string par les opérateurs de redirection de flux, à savoir $\vert$,\&,$<$,$>$,$<$$<$,$>$$>$ 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em String} & a découper, tab de string contenant la chaine de caractère découpé \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nombre de string dans le tableau 
+\end{DoxyReturn}
+\index{helper.\+c@{helper.\+c}!parse\+Space@{parse\+Space}}
+\index{parse\+Space@{parse\+Space}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{parse\+Space(char $\ast$str, char $\ast$parsed[])}{parseSpace(char *str, char *parsed[])}}]{\setlength{\rightskip}{0pt plus 5cm}int parse\+Space (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str, }
+\item[{char $\ast$}]{parsed\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a1e941fcaa0b19e24f436561f13fff047}{}\label{helper_8c_a1e941fcaa0b19e24f436561f13fff047}
+
+
+Fonction permettant de séparer une chaine de caractère par des espaces. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em str} & -\/$>$ chaine de caractère à séparer; parsed\mbox{[}\mbox{]} -\/$>$ tab de string contenant les string séprarés \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{helper.\+c@{helper.\+c}!parse\+String@{parse\+String}}
+\index{parse\+String@{parse\+String}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{parse\+String(char $\ast$str, char $\ast$parsed[], char $\ast$sep)}{parseString(char *str, char *parsed[], char *sep)}}]{\setlength{\rightskip}{0pt plus 5cm}int parse\+String (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str, }
+\item[{char $\ast$}]{parsed\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$}]{sep}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a1db78452432b56ef399a0b054b62a638}{}\label{helper_8c_a1db78452432b56ef399a0b054b62a638}
+
+
+Fonction permettant de séparer une chaine de caractère par un caractère pré-\/définie. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em str} & -\/$>$ chaine de caractère à séparer; parsed\mbox{[}\mbox{]} -\/$>$ tab de string contenant les string séprarés, sep -\/$>$ char de sépération \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{helper.\+c@{helper.\+c}!readline@{readline}}
+\index{readline@{readline}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{readline(void)}{readline(void)}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ readline (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a4ac40b6eb62ee09336c690894977841a}{}\label{helper_8c_a4ac40b6eb62ee09336c690894977841a}
+
+
+Fonction permettant de lire la saisie de l\textquotesingle{}entrée standard. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{helper.\+c@{helper.\+c}!rtrim@{rtrim}}
+\index{rtrim@{rtrim}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{rtrim(char $\ast$str)}{rtrim(char *str)}}]{\setlength{\rightskip}{0pt plus 5cm}void rtrim (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a36c31afc53e5a1e87177eff988d6d17e}{}\label{helper_8c_a36c31afc53e5a1e87177eff988d6d17e}
+
+
+Fonction permettant de supprimer les espaces, les tabulations et sauts de ligne en fin de string. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em String} & à examiner \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{helper.\+c@{helper.\+c}!trim@{trim}}
+\index{trim@{trim}!helper.\+c@{helper.\+c}}
+\subsubsection[{\texorpdfstring{trim(char str[])}{trim(char str[])}}]{\setlength{\rightskip}{0pt plus 5cm}void trim (
+\begin{DoxyParamCaption}
+\item[{char}]{str\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{helper_8c_a67a5c19d5a2782a49836a0b9190b88f8}{}\label{helper_8c_a67a5c19d5a2782a49836a0b9190b88f8}
+
+
+Fonction permettant d\textquotesingle{}appeler le rtrim et ltrim en un seul appel. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em String} & à examiner \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}

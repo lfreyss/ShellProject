@@ -1,0 +1,60 @@
+00-project.pdf
+bin
+cmd.gcda
+cmd.gcno
+doc
+gcov
+hash.gcda
+hash.gcno
+header
+helper.gcda
+helper.gcno
+in
+logCmd.txt
+log.gcda
+log.gcno
+Makefile
+out
+Rapport-ShellProject.docx
+README.md
+shell.gcda
+shell.gcno
+shellMan
+src
+test
+testtest
+tree.gcda
+tree.gcno
+total 928
+drwxrwxr-x 9 laurent laurent   4096 avril 16 13:50 .
+drwxrwxr-x 9 laurent laurent   4096 avril 16 11:17 ..
+-rw-rw-r-- 1 laurent laurent 623489 mars   8 12:16 00-project.pdf
+drwxrwxr-x 2 laurent laurent   4096 avril 16 13:43 bin
+-rw-rw-r-- 1 laurent laurent   1404 avril 16 14:00 cmd.gcda
+-rw-rw-r-- 1 laurent laurent   6400 avril 16 13:59 cmd.gcno
+drwxrwxr-x 4 laurent laurent   4096 avril 16 13:14 doc
+drwxrwxr-x 3 laurent laurent   4096 avril 16 13:59 gcov
+drwxrwxr-x 8 laurent laurent   4096 avril 16 14:00 .git
+-rw-rw-r-- 1 laurent laurent    430 janv. 24 11:17 .gitignore
+-rw-rw-r-- 1 laurent laurent    820 avril 16 14:00 hash.gcda
+-rw-rw-r-- 1 laurent laurent   1808 avril 16 13:59 hash.gcno
+drwxrwxr-x 2 laurent laurent   4096 avril 16 12:37 header
+-rw-rw-r-- 1 laurent laurent   1800 avril 16 14:00 helper.gcda
+-rw-rw-r-- 1 laurent laurent  11516 avril 16 13:59 helper.gcno
+-rw-rw-r-- 1 laurent laurent      0 avril 16 14:00 in
+-rw-rw-r-- 1 laurent laurent    119 avril 16 14:00 logCmd.txt
+-rw-rw-r-- 1 laurent laurent    776 avril 16 14:00 log.gcda
+-rw-rw-r-- 1 laurent laurent   1160 avril 16 13:59 log.gcno
+-rw-rw-r-- 1 laurent laurent   1215 avril 16 10:29 Makefile
+-rw-rw-r-- 1 laurent laurent      0 avril 16 14:00 out
+-rw-rw-r-- 1 laurent laurent 188376 mars  22 11:32 Rapport-ShellProject.docx
+-rw-rw-r-- 1 laurent laurent   4642 mars   8 12:16 README.md
+-rw-rw-r-- 1 laurent laurent   1616 avril 16 14:00 shell.gcda
+-rw-rw-r-- 1 laurent laurent   9092 avril 16 13:59 shell.gcno
+-rw-rw-r-- 1 laurent laurent    446 mars  22 11:32 shellMan
+drwxrwxr-x 2 laurent laurent   4096 avril 16 13:43 src
+-rw-rw-r-- 1 laurent laurent    247 avril 16 13:59 test
+-rw-rw-r-- 1 laurent laurent      0 mars  20 13:22 testtest
+-rw-rw-r-- 1 laurent laurent    992 avril 16 14:00 tree.gcda
+-rw-rw-r-- 1 laurent laurent   3048 avril 16 13:59 tree.gcno
+drwxrwxr-x 2 laurent laurent   4096 mars  10 15:10 .vscode

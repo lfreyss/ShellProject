@@ -1,4 +1,3 @@
-
 /**
  * \file hash.c
  * \brief Fichier contenant les fonctions utiles à un HashMap. Code source venant de

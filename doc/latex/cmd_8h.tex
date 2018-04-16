@@ -1,0 +1,177 @@
+\hypertarget{cmd_8h}{}\section{header/cmd.h File Reference}
+\label{cmd_8h}\index{header/cmd.\+h@{header/cmd.\+h}}
+
+
+Fichier contenant les fonctions utiles aux commandes shell.  
+
+
+{\ttfamily \#include \char`\"{}typedef.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}helper.\+h\char`\"{}}\\*
+Include dependency graph for cmd.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{cmd_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{cmd_8h_a56a8e2df9cc1b51768282c3c25874038}{run\+Help} ()
+\begin{DoxyCompactList}\small\item\em Fonction permettant la lecture d\textquotesingle{}un help. \end{DoxyCompactList}\item 
+int \hyperlink{cmd_8h_a9ba7160033643930ae009566f7249495}{execute} (char $\ast$$\ast$args)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de rediriger les commandes vers les fonctions d\textquotesingle{}executions corespondantes. \end{DoxyCompactList}\item 
+void \hyperlink{cmd_8h_ad7f750d44fbfd1fe9bb336972c061301}{print\+Dir} ()
+\begin{DoxyCompactList}\small\item\em Fonction permettant d\textquotesingle{}afficher le dossier courant lors de l\textquotesingle{}attente d\textquotesingle{}une saisie dans l\textquotesingle{}entrée standard. \end{DoxyCompactList}\item 
+int \hyperlink{cmd_8h_a22c46228fb3fc251965314bc14b0962e}{run\+Command} (char $\ast$$\ast$args)
+\begin{DoxyCompactList}\small\item\em Fonction permettant l\textquotesingle{}execution via un fork et execvp des commandes simples du shell. \end{DoxyCompactList}\item 
+int \hyperlink{cmd_8h_aa360d03ba8c90797bd1466b790c10fe6}{run\+Cd} (char $\ast$$\ast$args)
+\begin{DoxyCompactList}\small\item\em Fonction permettant l\textquotesingle{}execution de la fonction build in cd. \end{DoxyCompactList}\item 
+\hyperlink{typedef_8h_a1062901a7428fdd9c7f180f5e01ea056}{bool} \hyperlink{cmd_8h_ab591853ba45fab61ee9bb76304f72a61}{run\+Echo} (char $\ast$str)
+\begin{DoxyCompactList}\small\item\em Fonction permettant l\textquotesingle{}exectuion de la fonction build in echo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Fichier contenant les fonctions utiles aux commandes shell. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+20180301
+\end{DoxyDate}
+Fichier contenant les fonctionnalités cmd . 
+
+\subsection{Function Documentation}
+\index{cmd.\+h@{cmd.\+h}!execute@{execute}}
+\index{execute@{execute}!cmd.\+h@{cmd.\+h}}
+\subsubsection[{\texorpdfstring{execute(char $\ast$$\ast$args)}{execute(char **args)}}]{\setlength{\rightskip}{0pt plus 5cm}int execute (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{cmd_8h_a9ba7160033643930ae009566f7249495}{}\label{cmd_8h_a9ba7160033643930ae009566f7249495}
+
+
+Fonction permettant de rediriger les commandes vers les fonctions d\textquotesingle{}executions corespondantes. 
+
+\begin{DoxyAuthor}{Author}
+vlambs 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em tableau} & de string contenant la commande a éxécuter et ses arguments/options \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{cmd.\+h@{cmd.\+h}!print\+Dir@{print\+Dir}}
+\index{print\+Dir@{print\+Dir}!cmd.\+h@{cmd.\+h}}
+\subsubsection[{\texorpdfstring{print\+Dir()}{printDir()}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+Dir (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{cmd_8h_ad7f750d44fbfd1fe9bb336972c061301}{}\label{cmd_8h_ad7f750d44fbfd1fe9bb336972c061301}
+
+
+Fonction permettant d\textquotesingle{}afficher le dossier courant lors de l\textquotesingle{}attente d\textquotesingle{}une saisie dans l\textquotesingle{}entrée standard. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{cmd.\+h@{cmd.\+h}!run\+Cd@{run\+Cd}}
+\index{run\+Cd@{run\+Cd}!cmd.\+h@{cmd.\+h}}
+\subsubsection[{\texorpdfstring{run\+Cd(char $\ast$$\ast$args)}{runCd(char **args)}}]{\setlength{\rightskip}{0pt plus 5cm}int run\+Cd (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{cmd_8h_aa360d03ba8c90797bd1466b790c10fe6}{}\label{cmd_8h_aa360d03ba8c90797bd1466b790c10fe6}
+
+
+Fonction permettant l\textquotesingle{}execution de la fonction build in cd. 
+
+\begin{DoxyAuthor}{Author}
+vlambs 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em tableau} & de string contenant la commande a éxécuter et ses arguments/options \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Succès de la commande ou non 
+\end{DoxyReturn}
+\index{cmd.\+h@{cmd.\+h}!run\+Command@{run\+Command}}
+\index{run\+Command@{run\+Command}!cmd.\+h@{cmd.\+h}}
+\subsubsection[{\texorpdfstring{run\+Command(char $\ast$$\ast$args)}{runCommand(char **args)}}]{\setlength{\rightskip}{0pt plus 5cm}int run\+Command (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{cmd_8h_a22c46228fb3fc251965314bc14b0962e}{}\label{cmd_8h_a22c46228fb3fc251965314bc14b0962e}
+
+
+Fonction permettant l\textquotesingle{}execution via un fork et execvp des commandes simples du shell. 
+
+\begin{DoxyAuthor}{Author}
+vlambs/lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em tableau} & de string contenant la commande a éxécuter et ses arguments/options \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Succès de la commande ou non 
+\end{DoxyReturn}
+\index{cmd.\+h@{cmd.\+h}!run\+Echo@{run\+Echo}}
+\index{run\+Echo@{run\+Echo}!cmd.\+h@{cmd.\+h}}
+\subsubsection[{\texorpdfstring{run\+Echo(char $\ast$str)}{runEcho(char *str)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} run\+Echo (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{cmd_8h_ab591853ba45fab61ee9bb76304f72a61}{}\label{cmd_8h_ab591853ba45fab61ee9bb76304f72a61}
+
+
+Fonction permettant l\textquotesingle{}exectuion de la fonction build in echo. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em tableau} & de string contenant la commande a éxécuter et ses arguments/options \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Succès de la commande ou non 
+\end{DoxyReturn}
+\index{cmd.\+h@{cmd.\+h}!run\+Help@{run\+Help}}
+\index{run\+Help@{run\+Help}!cmd.\+h@{cmd.\+h}}
+\subsubsection[{\texorpdfstring{run\+Help()}{runHelp()}}]{\setlength{\rightskip}{0pt plus 5cm}void run\+Help (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{cmd_8h_a56a8e2df9cc1b51768282c3c25874038}{}\label{cmd_8h_a56a8e2df9cc1b51768282c3c25874038}
+
+
+Fonction permettant la lecture d\textquotesingle{}un help. 
+
+\begin{DoxyAuthor}{Author}
+vlambs 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}

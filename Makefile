@@ -1,51 +1,63 @@
-#Chemin de recherche des fichiers
-VPATH = src/ header/
-#Compilateur
 CC=gcc
-# Recherche des .C pour la cible sans librairies
-SRC=$(wildcard src/*.c)
-OBJ=$(notdir $(patsubst %.c,%.o,$(SRC)))
-# documentation path
+CFLAGS=-Wall -c
+LDFLAGS=-I ./header/
+
+SRC_DIR=./src
+INC_DIR=./header
+BIN_DIR=./bin
 DOC_DIR=./doc
-# gcov stuff
 GCOV_DIR=./gcov
+
 GCOVFLAGS=-O0 --coverage -lgcov -Wall -g
+
 LCOV_REPORT=report.info
 
-# Nom de l'éxecutable
-PROG=shell
+SRC=$(wildcard $(SRC_DIR)/*.c)
+OBJ=$(SRC:.c=.o)
+EXEC=shell
 
-# gcov exec
-GEXEC=$(PROG).cov 
+GEXEC=$(EXEC).cov
 
-# Cible appelée par défaut
-all: $(PROG)
-
-# Programme sans librairie
-$(PROG): $(OBJ)
-	$(CC) -g -o $@ $^
+AR_NAME=archive_$(EXEC).tar.gz
 
 
-%.o: %.c %.h
-	$(CC) -g -c $<
+all: $(SRC) $(EXEC)
+    
+%.o:%.c
+	$(CC) $(CFLAGS) $< $(LDFLAGS) -o $@
 
-# Doxygen
-#doc:
-#  doxygen $(DOC_DIR)/doxygen.conf
-  
-# Test Coverage
+$(EXEC): $(OBJ) 
+	$(CC) -o $(BIN_DIR)/$@ -Wall $(LDFLAGS) $(OBJ)
+
+$(GEXEC):
+	$(CC) $(GCOVFLAGS) -o $(GCOV_DIR)/$@ -Wall $(LDFLAGS) $(SRC)
+
+doc:
+	doxygen $(DOC_DIR)/doxygen.conf
+
 gcov: $(GEXEC)
 	# generate some data for gcov by calling the generated binary with various options
 	$(GCOV_DIR)/$(GEXEC) -h
 	$(GCOV_DIR)/$(GEXEC) -i input -o output -v
 
-	find ./ -maxdepth 1 -name "*.gcno" -exec mv {} $(GCOV_DIR) \;
-	find ./ -maxdepth 1 -name "*.gcda" -exec mv {} $(GCOV_DIR) \;
+	find ./ -maxdepth 1 -name \*.gcno -exec mv {} $(GCOV_DIR) \;
+	find ./ -maxdepth 1 -name \*.gcda -exec mv {} $(GCOV_DIR) \;
 
 	gcov -o $(GCOV_DIR) $(GEXEC)
 	lcov -o $(GCOV_DIR)/$(LCOV_REPORT) -c -f -d $(GCOV_DIR)
-  genhtml -o $(GCOV_DIR)/report $(GCOV_DIR)/$(LCOV_REPORT)
+	genhtml -o $(GCOV_DIR)/report $(GCOV_DIR)/$(LCOV_REPORT)
 
-#Nettoyage des fichiers de pré-compilation
-clean:
-	rm $(PROG) *.o
+package: gcov doc all
+package: all
+	rm -rf $(AR_NAME)
+	tar cvfz $(AR_NAME) ./*
+clean:	
+	rm -rf $(OBJ)
+
+mrproper: clean
+	rm -rf $(BIN_DIR)/*
+	rm -rf $(DOC_DIR)/latex/
+	rm -rf $(DOC_DIR)/html/
+	rm -rf $(GCOV_DIR)/*
+
+.PHONY: doc

@@ -1,0 +1,129 @@
+\hypertarget{tree_8h}{}\section{header/tree.h File Reference}
+\label{tree_8h}\index{header/tree.\+h@{header/tree.\+h}}
+
+
+librairie permettant l\textquotesingle{}utilisation d\textquotesingle{}un tree  
+
+
+{\ttfamily \#include \char`\"{}typedef.\+h\char`\"{}}\\*
+Include dependency graph for tree.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{tree_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{typedef_8h_a1062901a7428fdd9c7f180f5e01ea056}{bool} \hyperlink{tree_8h_ab248547d5fd702c4cb2f35ba26013303}{is\+Operator} (char $\ast$c)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de déterminer si l\textquotesingle{}élément est un opérateur ou une commande. \end{DoxyCompactList}\item 
+\hyperlink{struct__node}{node} $\ast$ \hyperlink{tree_8h_a36a86fd54baf613baa671435fe7488ae}{new\+Node} ()
+\begin{DoxyCompactList}\small\item\em Fonction permettant la création d\textquotesingle{}un noeud vide. \end{DoxyCompactList}\item 
+\hyperlink{struct__node}{node} $\ast$ \hyperlink{tree_8h_a13dd92c48cc266d1b1659ba98346f3aa}{construct\+Tree} (char $\ast$$\ast$input, int size\+Input)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de construire récursivement un arbre de commande. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{tree_8h_a2c958212afc71d4c61953776014b9ce6}{display\+Tree} (\hyperlink{struct__node}{node} $\ast$noeud)
+\begin{DoxyCompactList}\small\item\em Fonction peremttant de visualiser dans la sortie standard un arbre à partir d\textquotesingle{}un noeud spécifique. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+librairie permettant l\textquotesingle{}utilisation d\textquotesingle{}un tree 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+25 janvier 2018
+\end{DoxyDate}
+Définition des variables, enum, struct. 
+
+\subsection{Function Documentation}
+\index{tree.\+h@{tree.\+h}!construct\+Tree@{construct\+Tree}}
+\index{construct\+Tree@{construct\+Tree}!tree.\+h@{tree.\+h}}
+\subsubsection[{\texorpdfstring{construct\+Tree(char $\ast$$\ast$input, int size\+Input)}{constructTree(char **input, int sizeInput)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf node} $\ast$ construct\+Tree (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{input, }
+\item[{int}]{size\+Input}
+\end{DoxyParamCaption}
+)}\hypertarget{tree_8h_a13dd92c48cc266d1b1659ba98346f3aa}{}\label{tree_8h_a13dd92c48cc266d1b1659ba98346f3aa}
+
+
+Fonction permettant de construire récursivement un arbre de commande. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em input} & -\/$>$ le tableau de string qu\textquotesingle{}il faut transformer en arbre, size\+Input -\/$>$ le nombre d\textquotesingle{}élément dans le tableau \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Le noeud construit lors de l\textquotesingle{}itération de récursivité 
+\end{DoxyReturn}
+\index{tree.\+h@{tree.\+h}!display\+Tree@{display\+Tree}}
+\index{display\+Tree@{display\+Tree}!tree.\+h@{tree.\+h}}
+\subsubsection[{\texorpdfstring{display\+Tree(node $\ast$noeud)}{displayTree(node *noeud)}}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ display\+Tree (
+\begin{DoxyParamCaption}
+\item[{{\bf node} $\ast$}]{noeud}
+\end{DoxyParamCaption}
+)}\hypertarget{tree_8h_a2c958212afc71d4c61953776014b9ce6}{}\label{tree_8h_a2c958212afc71d4c61953776014b9ce6}
+
+
+Fonction peremttant de visualiser dans la sortie standard un arbre à partir d\textquotesingle{}un noeud spécifique. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em Noeud} & spécifique à partir du quel on affiche l\textquotesingle{}arbre \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+valeur du noeud 
+\end{DoxyReturn}
+\index{tree.\+h@{tree.\+h}!is\+Operator@{is\+Operator}}
+\index{is\+Operator@{is\+Operator}!tree.\+h@{tree.\+h}}
+\subsubsection[{\texorpdfstring{is\+Operator(char $\ast$c)}{isOperator(char *c)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} is\+Operator (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{tree_8h_ab248547d5fd702c4cb2f35ba26013303}{}\label{tree_8h_ab248547d5fd702c4cb2f35ba26013303}
+
+
+Fonction permettant de déterminer si l\textquotesingle{}élément est un opérateur ou une commande. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em c} & -\/$>$ élément à examiner \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+est un opérateur ou non 
+\end{DoxyReturn}
+\index{tree.\+h@{tree.\+h}!new\+Node@{new\+Node}}
+\index{new\+Node@{new\+Node}!tree.\+h@{tree.\+h}}
+\subsubsection[{\texorpdfstring{new\+Node()}{newNode()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf node} $\ast$ new\+Node (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{tree_8h_a36a86fd54baf613baa671435fe7488ae}{}\label{tree_8h_a36a86fd54baf613baa671435fe7488ae}
+
+
+Fonction permettant la création d\textquotesingle{}un noeud vide. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}

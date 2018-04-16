@@ -1,0 +1,87 @@
+\hypertarget{hash_8h}{}\section{header/hash.h File Reference}
+\label{hash_8h}\index{header/hash.\+h@{header/hash.\+h}}
+
+
+Fichier contenant les fonctions utiles à un Hash\+Map. Code source venant de Section 6.\+6 of The C Programming Language.  
+
+
+{\ttfamily \#include \char`\"{}typedef.\+h\char`\"{}}\\*
+Include dependency graph for hash.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=158pt]{hash_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned {\bfseries hash} (char $\ast$s)\hypertarget{hash_8h_a998ad9aa6cfe8a43b60cdc806667bdb2}{}\label{hash_8h_a998ad9aa6cfe8a43b60cdc806667bdb2}
+
+\item 
+struct \hyperlink{structnlist}{nlist} $\ast$ \hyperlink{hash_8h_aade07f4a46f6b9dc676fb0bca7249f5b}{lookup} (char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de parcourir la Hash\+Map et de trouver l\textquotesingle{}élement voulu. \end{DoxyCompactList}\item 
+struct \hyperlink{structnlist}{nlist} $\ast$ \hyperlink{hash_8h_af3277df8a8588aab5b389118781e199e}{install} (char $\ast$name, char $\ast$defn)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de rajouter un élément à la Hash\+Map. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Fichier contenant les fonctions utiles à un Hash\+Map. Code source venant de Section 6.\+6 of The C Programming Language. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+20180308
+\end{DoxyDate}
+Fichier contenant les fonctionnalités H\+A\+SH . 
+
+\subsection{Function Documentation}
+\index{hash.\+h@{hash.\+h}!install@{install}}
+\index{install@{install}!hash.\+h@{hash.\+h}}
+\subsubsection[{\texorpdfstring{install(char $\ast$name, char $\ast$defn)}{install(char *name, char *defn)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} {\bf nlist} $\ast$ install (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name, }
+\item[{char $\ast$}]{defn}
+\end{DoxyParamCaption}
+)}\hypertarget{hash_8h_af3277df8a8588aab5b389118781e199e}{}\label{hash_8h_af3277df8a8588aab5b389118781e199e}
+
+
+Fonction permettant de rajouter un élément à la Hash\+Map. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em name} & -\/$>$ nom du hashmap; defn -\/$>$ valeur du hashmap \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nlist que l\textquotesingle{}on vient de rajouter 
+\end{DoxyReturn}
+\index{hash.\+h@{hash.\+h}!lookup@{lookup}}
+\index{lookup@{lookup}!hash.\+h@{hash.\+h}}
+\subsubsection[{\texorpdfstring{lookup(char $\ast$s)}{lookup(char *s)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf nlist} $\ast$ lookup (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+)}\hypertarget{hash_8h_aade07f4a46f6b9dc676fb0bca7249f5b}{}\label{hash_8h_aade07f4a46f6b9dc676fb0bca7249f5b}
+
+
+Fonction permettant de parcourir la Hash\+Map et de trouver l\textquotesingle{}élement voulu. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em chaine} & de caractère que l\textquotesingle{}on recherche \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Struct nlist recherchée ou null si non trouvée 
+\end{DoxyReturn}

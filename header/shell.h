@@ -1,7 +1,7 @@
 /**
- * \file main.h
+ * \file shell.h
  * \brief Header principal.
- * \author vlambs
+ * \author lfreyss
  * \version 0.1
  * \date 24 janvier 2018
  *

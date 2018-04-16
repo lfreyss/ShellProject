@@ -127,7 +127,7 @@ int runInBackground(char* completeInput, int index) {
         int loopAlive = launchProcess(completeInput);
         // On est dans le fils
         if (status == -1) {
-          perror("Erreur lors de l'execution du processus fils");
+          //perror("Erreur lors de l'execution du processus fils");
           printf("Une erreur est survenue lors de l'execution de la commande.\n");
         }
         exit(1);

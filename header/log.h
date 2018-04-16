@@ -1,6 +1,6 @@
 /**
  * \file log.h
- * \brief helper header.
+ * \brief log header.
  * \author vlambs
  * \version 0.1
  * \date 20180207

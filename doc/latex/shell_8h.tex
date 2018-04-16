@@ -1,0 +1,156 @@
+\hypertarget{shell_8h}{}\section{header/shell.h File Reference}
+\label{shell_8h}\index{header/shell.\+h@{header/shell.\+h}}
+
+
+Header principal.  
+
+
+{\ttfamily \#include \char`\"{}typedef.\+h\char`\"{}}\\*
+Include dependency graph for shell.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{shell_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{shell_8h_a4db33f9923b15a7b2fb2a61376a4d6ed}{add\+Alias} (char $\ast$input)
+\begin{DoxyCompactList}\small\item\em Fonction permettant l\textquotesingle{}ajout d\textquotesingle{}un alias dans une Hash\+Map. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{shell_8h_a5d771f95c792771f6dafb7b8d7a8d5ed}{read\+Tree} (\hyperlink{struct__node}{node} $\ast$root)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de lire l\textquotesingle{}arbre de commande et de lancer le process des commandes. \end{DoxyCompactList}\item 
+int \hyperlink{shell_8h_a3ae4caaca91ac9caf3a01901d969e39a}{run\+In\+Background} (char $\ast$complete\+Input, int index)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de lancer en arrière plan les commandes saisies. \end{DoxyCompactList}\item 
+int \hyperlink{shell_8h_a248c40b7c05447d24a328de1833c81e1}{launch\+Process} (char $\ast$complete\+Input)
+\begin{DoxyCompactList}\small\item\em Fonction permettant lancer la série de commande en avant plan. \end{DoxyCompactList}\item 
+void \hyperlink{shell_8h_aed10a787c30b342e9f80f630376c50c0}{bash\+\_\+loop} (F\+I\+LE $\ast$f)
+\begin{DoxyCompactList}\small\item\em Fonction permettant de boucler notre programme tant que la commande exit n\textquotesingle{}est pas entré par l\textquotesingle{}utilisateur. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Header principal. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+24 janvier 2018
+\end{DoxyDate}
+Header principal. 
+
+\subsection{Function Documentation}
+\index{shell.\+h@{shell.\+h}!add\+Alias@{add\+Alias}}
+\index{add\+Alias@{add\+Alias}!shell.\+h@{shell.\+h}}
+\subsubsection[{\texorpdfstring{add\+Alias(char $\ast$input)}{addAlias(char *input)}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Alias (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{input}
+\end{DoxyParamCaption}
+)}\hypertarget{shell_8h_a4db33f9923b15a7b2fb2a61376a4d6ed}{}\label{shell_8h_a4db33f9923b15a7b2fb2a61376a4d6ed}
+
+
+Fonction permettant l\textquotesingle{}ajout d\textquotesingle{}un alias dans une Hash\+Map. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em input} & -\/$>$ String entré par l\textquotesingle{}utilisateur commencant par la commande alias \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{shell.\+h@{shell.\+h}!bash\+\_\+loop@{bash\+\_\+loop}}
+\index{bash\+\_\+loop@{bash\+\_\+loop}!shell.\+h@{shell.\+h}}
+\subsubsection[{\texorpdfstring{bash\+\_\+loop(\+F\+I\+L\+E $\ast$f)}{bash_loop(FILE *f)}}]{\setlength{\rightskip}{0pt plus 5cm}void bash\+\_\+loop (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{shell_8h_aed10a787c30b342e9f80f630376c50c0}{}\label{shell_8h_aed10a787c30b342e9f80f630376c50c0}
+
+
+Fonction permettant de boucler notre programme tant que la commande exit n\textquotesingle{}est pas entré par l\textquotesingle{}utilisateur. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em fichier} & de log \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{shell.\+h@{shell.\+h}!launch\+Process@{launch\+Process}}
+\index{launch\+Process@{launch\+Process}!shell.\+h@{shell.\+h}}
+\subsubsection[{\texorpdfstring{launch\+Process(char $\ast$complete\+Input)}{launchProcess(char *completeInput)}}]{\setlength{\rightskip}{0pt plus 5cm}void launch\+Process (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{complete\+Input}
+\end{DoxyParamCaption}
+)}\hypertarget{shell_8h_a248c40b7c05447d24a328de1833c81e1}{}\label{shell_8h_a248c40b7c05447d24a328de1833c81e1}
+
+
+Fonction permettant lancer la série de commande en avant plan. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em String} & contenant la saisie de l\textquotesingle{}entrée standard \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Statut du shell (doit quitter \+: 0; continuer la boucle\+: 1) 
+\end{DoxyReturn}
+\index{shell.\+h@{shell.\+h}!read\+Tree@{read\+Tree}}
+\index{read\+Tree@{read\+Tree}!shell.\+h@{shell.\+h}}
+\subsubsection[{\texorpdfstring{read\+Tree(node $\ast$root)}{readTree(node *root)}}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ read\+Tree (
+\begin{DoxyParamCaption}
+\item[{{\bf node} $\ast$}]{root}
+\end{DoxyParamCaption}
+)}\hypertarget{shell_8h_a5d771f95c792771f6dafb7b8d7a8d5ed}{}\label{shell_8h_a5d771f95c792771f6dafb7b8d7a8d5ed}
+
+
+Fonction permettant de lire l\textquotesingle{}arbre de commande et de lancer le process des commandes. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em root} & -\/$>$ noeud principale de l\textquotesingle{}arbre \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{shell.\+h@{shell.\+h}!run\+In\+Background@{run\+In\+Background}}
+\index{run\+In\+Background@{run\+In\+Background}!shell.\+h@{shell.\+h}}
+\subsubsection[{\texorpdfstring{run\+In\+Background(char $\ast$complete\+Input, int index)}{runInBackground(char *completeInput, int index)}}]{\setlength{\rightskip}{0pt plus 5cm}int run\+In\+Background (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{complete\+Input, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}\hypertarget{shell_8h_a3ae4caaca91ac9caf3a01901d969e39a}{}\label{shell_8h_a3ae4caaca91ac9caf3a01901d969e39a}
+
+
+Fonction permettant de lancer en arrière plan les commandes saisies. 
+
+\begin{DoxyAuthor}{Author}
+lfreyss 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em String} & contenant la saisie de l\textquotesingle{}entrée standard, numéro d\textquotesingle{}index du char \& à retirer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
