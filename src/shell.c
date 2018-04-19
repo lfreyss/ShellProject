@@ -101,7 +101,7 @@ char* readTree(node* root) {
           parseSpace(root->value, arguments);
 
           status = execute(arguments);
-          free(arguments);
+          //free(arguments);
         }
         return root->value;
     }
@@ -228,7 +228,7 @@ int main(int argc, char** argv)
     printf("Il y a trop d'arguments.");
   }
   //execution normale du programme
-  else if(argc == 0){
+  else {
     resetLogFile();
     bash_loop();
     return EXIT_SUCCESS;

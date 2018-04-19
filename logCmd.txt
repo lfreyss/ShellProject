@@ -1,2 +1,16 @@
 ls
 
+ls -al
+
+ls -al | grep bin && echo ok >> res.txt && echo nok >> res.txt
+
+ls -al | grep bin && echo ok >> res.txt || echo nok >> res.txt
+
+
+
+grep n < res.txt
+
+ls ; pwd
+
+exit
+
