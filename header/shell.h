@@ -51,6 +51,24 @@ int runInBackground(char* completeInput, int index);
  */
 int launchProcess(char* completeInput);
 
+/**
+ * \fn void checkBatchMode(char* option, char* cmd);
+ * \brief Fonction permettant de vérifier que les arguments pour le batch mode soient correctes et exécuter la commande si tout est ok
+ * \author vlambs
+ * \param String contenant l'option ("-b")
+ * \param String contenant la commande à exécuter 
+ * \return
+ */
+void checkBatchMode(char* option, char* cmd)
+
+/**
+ * \fn void launch(char* input)
+ * \brief Fonction permettant fait les appels pour executer la commande (parsing, arbres, etc)
+ * \author vlambs
+ * \param String contenant la commande à exécuter 
+ * \return 
+ */
+void launch(char* input)
 
 /**
  * \fn void bash_loop(FILE *f);

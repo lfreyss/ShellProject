@@ -198,10 +198,39 @@ void bash_loop()
 
 }
 
+void launch(char* input){ //fait les appels pour executer la commande (parsing, arbres, etc)
+  char** parsedInput = createCallocTab(10, 40); 
+  int sizeInput = parseControlOperator(input, parsedInput);
+  node* root = constructTree(parsedInput, sizeInput);
+  readTree(root);
+  displayOutput("out");
+  free(parsedInput);
+}
 
-int main(int argc, char* argv)
+void checkBatchMode(char* option, char* cmd){ //verifier le batch mode et nettoyer la commande a executer
+  //batch mode valide si option -b
+  if(strcmp ("-c", option) == 0){
+     launch(cmd);
+  }
+  //sinon on ne fait rien
+  else{
+    printf("Option invalide.");
+  }
+}
+
+int main(int argc, char** argv)
 {
-  resetLogFile();
-  bash_loop();
-  return EXIT_SUCCESS;
+  //est-ce qu'on a bien deux argument
+  if(argc == 3){
+    checkBatchMode(argv[1], argv[2]);
+  }
+  else if(argc > 3){
+    printf("Il y a trop d'arguments.");
+  }
+  //execution normale du programme
+  else if(argc == 0){
+    resetLogFile();
+    bash_loop();
+    return EXIT_SUCCESS;
+  }
 }
